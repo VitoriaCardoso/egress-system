@@ -1,13 +1,16 @@
 export interface AcademicInformation {
-	id: number;
-	institutionName: string;
-	institutionType: string;
-	courseName: string;
-	courseLevel: string;
+	id: string;
+	institution_name: string;
+	institution_type: string; //institutionType
+	course_name: string; //courseName
+	course_level: string;
 	country: string;
-	startDate: string;
-	endDate: string;
+	start_date: string;
+	end_date: string;
 	state: string;
 	city: string;
-	registrationNumber?: string;
+	matricula?: string;
+	campus?: string;
+	registration_number?: string;
+	document: string;
 }

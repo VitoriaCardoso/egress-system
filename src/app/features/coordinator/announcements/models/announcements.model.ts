@@ -18,7 +18,7 @@ export interface AnnouncementAll extends AnnouncementBase {
 export interface AnnouncementSpecific extends AnnouncementBase {
 	typeRecipients: TypeRecipientsEnum.SPECIFIC;
 	courses: Array<string>;
-	courseLevels: Array<string>;
+	course_levels: Array<string>;
 }
 
 export type Announcement = AnnouncementSpecific | AnnouncementAll;

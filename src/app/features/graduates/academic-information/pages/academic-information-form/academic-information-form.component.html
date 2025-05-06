@@ -7,34 +7,55 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-edit">
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-input id="institutionName" label="Nome da Instituição" formControlName="institutionName">
-				@if (form.get('institutionName') | hasError) {
+			<app-input id="institution_name" label="Nome da Instituição" formControlName="institution_name">
+				@if (form.get('institution_name') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-select
-				[options]="institutionTypeOptions"
-				id="institutionType"
+				[options]="institution_typeOptions"
+				id="institution_type"
 				label="Tipo de Instituição"
-				formControlName="institutionType"
+				formControlName="institution_type"
 			>
-				@if (form.get('institutionType') | hasError) {
+				@if (form.get('institution_type') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-select>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="courseName" label="Nome do Curso" formControlName="courseName">
-				@if (form.get('courseName') | hasError) {
+			<app-input id="course_name" label="Nome do Curso" formControlName="course_name">
+				@if (form.get('course_name') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-select [options]="titrationOptions" id="courseLevel" label="Titulação" formControlName="courseLevel">
-				@if (form.get('courseLevel') | hasError) {
+			<app-input id="matricula" label="Matrícula" formControlName="matricula">
+				@if (form.get('matricula') | hasError) {
+					<span br-feedback state="danger">Campo obrigatório</span>
+				}
+			</app-input>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-input id="campus" label="Campus" formControlName="campus">
+				@if (form.get('campus') | hasError) {
+					<span br-feedback state="danger">Campo obrigatório</span>
+				}
+			</app-input>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-input id="registration_number" label="Número de Registro" formControlName="registration_number">
+				@if (form.get('registration_number') | hasError) {
+					<span br-feedback state="danger">Campo obrigatório</span>
+				}
+			</app-input>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-select [options]="titrationOptions" id="course_level" label="Titulação" formControlName="course_level">
+				@if (form.get('course_level') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-select>
@@ -42,18 +63,18 @@
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-date-time-picker id="startDate" label="Data de Ingresso" type="date" formControlName="startDate">
-				@if (form.get('startDate') | hasError) {
+			<app-date-time-picker id="start_date" label="Data de Ingresso" type="date" formControlName="start_date">
+				@if (form.get('start_date') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-date-time-picker>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-date-time-picker
-				id="endDate"
+				id="end_date"
 				label="Data de Conclusão"
 				type="date"
-				formControlName="endDate"
+				formControlName="end_date"
 			></app-date-time-picker>
 		</div>
 	</div>
@@ -78,6 +99,11 @@
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
+		</div>
+		<!-- Campo CPF -->
+		<div class="col-12 col-lg-3">
+			<label for="cpf">CPF</label>
+			<div id="cpf">123.456.789-14</div>
 		</div>
 		<div
 			class="col-12 col-lg-3 d-flex align-items-end justify-content-lg-end justify-content-center mt-4 mt-md-0 gap-3"

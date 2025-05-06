@@ -23,16 +23,16 @@ export class ProfileEditComponent {
 
 	constructor() {
 		this.form = new FormGroup({
-			name: new FormControl({ value: this.data.name, disabled: true }, Validators.required),
-			socialName: new FormControl({ value: this.data.socialName, disabled: false }, Validators.required),
+			nome: new FormControl({ value: this.data.nome, disabled: true }, Validators.required),
+			nome_social: new FormControl({ value: this.data.nome_social, disabled: false }, Validators.required),
 			cpf: new FormControl({ value: this.data.cpf, disabled: true }, Validators.required),
 			email: new FormControl({ value: this.data.email, disabled: true }, [Validators.required, Validators.email]),
-			secondaryEmail: new FormControl(this.data.secondaryEmail, [Validators.email]),
-			phone: new FormControl(this.data.phone, Validators.required),
-			secondaryPhone: new FormControl(this.data.secondaryPhone),
-			lattesLink: new FormControl(this.data.lattesLink),
-			orcidLink: new FormControl(this.data.orcidLink),
-			linkedinLink: new FormControl(this.data.linkedinLink),
+			email_secundario: new FormControl(this.data.email_secundario, [Validators.email]),
+			phone: new FormControl(this.data.telefone, Validators.required),
+			telefone_secundario: new FormControl(this.data.telefone_secundario),
+			link_lattes: new FormControl(this.data.link_lattes),
+			link_orcid: new FormControl(this.data.link_orcid),
+			link_linkedin: new FormControl(this.data.link_linkedin),
 		});
 	}
 

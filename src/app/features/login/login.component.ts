@@ -26,6 +26,10 @@ export class LoginComponent {
 		password: new FormControl('', [Validators.required]),
 	});
 
+	loginGov() {
+		window.location.href = 'http://localhost:8080/auth/login-govbr';
+	}
+
 	submit() {
 		if (this.formLogin.invalid) {
 			this.formLogin.markAsTouched();

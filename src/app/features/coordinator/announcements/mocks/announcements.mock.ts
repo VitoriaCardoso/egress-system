@@ -28,7 +28,7 @@ export const ANNOUNCEMENTS_MOCK: Announcements = [
 		`,
 		typeRecipients: TypeRecipientsEnum.SPECIFIC,
 		courses: ['Ciência da Computação', 'Sistemas de Informação'],
-		courseLevels: ['Graduação', 'Mestrado'],
+		course_levels: ['Graduação', 'Mestrado'],
 	},
 	{
 		id: 3,
@@ -41,7 +41,7 @@ export const ANNOUNCEMENTS_MOCK: Announcements = [
 		`,
 		typeRecipients: TypeRecipientsEnum.SPECIFIC,
 		courses: ['Administração', 'Ciências Contábeis', 'Direito'],
-		courseLevels: ['Graduação', 'Especialização'],
+		course_levels: ['Graduação', 'Especialização'],
 	},
 	{
 		id: 4,
@@ -65,7 +65,7 @@ export const ANNOUNCEMENTS_MOCK: Announcements = [
 		`,
 		typeRecipients: TypeRecipientsEnum.SPECIFIC,
 		courses: ['Educação Física', 'Fisioterapia', 'Medicina Veterinária'],
-		courseLevels: ['Graduação', 'Doutorado'],
+		course_levels: ['Graduação', 'Doutorado'],
 	},
 	{
 		id: 6,
@@ -100,7 +100,7 @@ export const ANNOUNCEMENTS_MOCK: Announcements = [
 		`,
 		typeRecipients: TypeRecipientsEnum.SPECIFIC,
 		courses: ['Biomedicina', 'Enfermagem', 'Fisioterapia'],
-		courseLevels: ['Graduação', 'Especialização', 'MBA'],
+		course_levels: ['Graduação', 'Especialização', 'MBA'],
 	},
 	{
 		id: 9,
@@ -113,7 +113,7 @@ export const ANNOUNCEMENTS_MOCK: Announcements = [
 		`,
 		typeRecipients: TypeRecipientsEnum.SPECIFIC,
 		courses: ['Ciência da Computação', 'Sistemas de Informação'],
-		courseLevels: ['Graduação', 'Bacharelado'],
+		course_levels: ['Graduação', 'Bacharelado'],
 	},
 	{
 		id: 10,
@@ -126,7 +126,7 @@ export const ANNOUNCEMENTS_MOCK: Announcements = [
 		`,
 		typeRecipients: TypeRecipientsEnum.SPECIFIC,
 		courses: ['Direito'],
-		courseLevels: ['Graduação', 'Especialização'],
+		course_levels: ['Graduação', 'Especialização'],
 	},
 ];
 

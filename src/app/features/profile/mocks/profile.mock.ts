@@ -1,14 +1,14 @@
-import { Profile } from '@app/features/profile/profile.component';
+import { EgressoModel } from '../models/profile-model';
 
-export const profileMock: Profile = {
-	name: 'José da Silva Pereira',
-	socialName: 'José da Silva',
+export const profileMock: EgressoModel = {
+	nome: 'José da Silva Pereira',
+	nome_social: 'José da Silva',
 	cpf: '123.456.789-00',
 	email: 'josesilvapereira@email.com',
-	secondaryEmail: 'josesilvapereira01@email.com',
-	phone: '(34) 99999-9999',
-	secondaryPhone: '(34) 99999-8888',
-	lattesLink: 'http://lattes.cnpq.br/12345678900',
-	orcidLink: 'http://orcid.com/josedasilva',
-	linkedinLink: 'http://linkedin.com/in/josedasilva',
+	email_secundario: 'josesilvapereira01@email.com',
+	telefone: '(34) 99999-9999',
+	telefone_secundario: '(34) 99999-8888',
+	link_lattes: 'http://lattes.cnpq.br/12345678900',
+	link_orcid: 'http://orcid.com/josedasilva',
+	link_linkedin: 'http://linkedin.com/in/josedasilva',
 };

@@ -1,21 +1,21 @@
 import { SelectOptions } from '../models/select.model';
-import { InstitutionTypeEnum } from '../enums/institution-type.enum';
+import { institution_typeEnum } from '../enums/institution-type.enum';
 
-export const INSTITUTION_TYPE_OPTIONS_MOCK: SelectOptions = [
+export const institution_type_OPTIONS_MOCK: SelectOptions = [
 	{
-		value: InstitutionTypeEnum.PUBLIC_INSTITUTION,
+		value: institution_typeEnum.PUBLIC_INSTITUTION,
 		label: 'Instituição Pública',
 	},
 	{
-		value: InstitutionTypeEnum.PRIVATE_INSTITUTION,
+		value: institution_typeEnum.PRIVATE_INSTITUTION,
 		label: 'Instituição Privada',
 	},
 	{
-		value: InstitutionTypeEnum.FOREIGN_INSTITUTION,
+		value: institution_typeEnum.FOREIGN_INSTITUTION,
 		label: 'Instituição Estrangeira',
 	},
 	{
-		value: InstitutionTypeEnum.OTHER,
+		value: institution_typeEnum.OTHER,
 		label: 'Outro',
 	},
 ];

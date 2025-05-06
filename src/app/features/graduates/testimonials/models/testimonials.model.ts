@@ -8,7 +8,7 @@ export interface Testimonial {
 
 export interface TestimonialForm {
 	text: string;
-	courseName: string;
+	course_name: string;
 	privacy: string;
 }
 

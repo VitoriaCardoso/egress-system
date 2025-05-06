@@ -9,27 +9,27 @@ describe('TitleCollapseProfessionalInformationPipe', () => {
 	});
 
 	it('returns concatenated company name and job title', () => {
-		const professionalInfo: Partial<ProfessionalInfo> = { companyName: 'Tech Corp', jobTitle: 'Developer' };
+		const professionalInfo: Partial<ProfessionalInfo> = { company_name: 'Tech Corp', job_title: 'Developer' };
 		expect(pipe.transform(professionalInfo)).toBe('Tech Corp - Developer');
 	});
 
 	it('returns only company name if job title is empty', () => {
-		const professionalInfo: Partial<ProfessionalInfo> = { companyName: 'Tech Corp', jobTitle: '' };
+		const professionalInfo: Partial<ProfessionalInfo> = { company_name: 'Tech Corp', job_title: '' };
 		expect(pipe.transform(professionalInfo)).toBe('Tech Corp - ');
 	});
 
 	it('returns only job title if company name is empty', () => {
-		const professionalInfo: Partial<ProfessionalInfo> = { companyName: '', jobTitle: 'Developer' };
+		const professionalInfo: Partial<ProfessionalInfo> = { company_name: '', job_title: 'Developer' };
 		expect(pipe.transform(professionalInfo)).toBe(' - Developer');
 	});
 
 	it('returns empty string if both company name and job title are empty', () => {
-		const professionalInfo: Partial<ProfessionalInfo> = { companyName: '', jobTitle: '' };
+		const professionalInfo: Partial<ProfessionalInfo> = { company_name: '', job_title: '' };
 		expect(pipe.transform(professionalInfo)).toBe(' - ');
 	});
 
 	it('handles null values gracefully', () => {
-		const professionalInfo: Partial<ProfessionalInfo> = { companyName: null, jobTitle: null };
+		const professionalInfo: Partial<ProfessionalInfo> = { company_name: null, job_title: null };
 		expect(pipe.transform(professionalInfo)).toBe('null - null');
 	});
 });

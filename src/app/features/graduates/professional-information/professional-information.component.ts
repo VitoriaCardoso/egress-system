@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CollapseItemComponent } from '@shared/components/collapse-item/collapse-item.component';
 import { ItemInfoComponent } from '@shared/components/item-info/item-info.component';
 import { PROFESSIONAL_INFO_MOCK } from './mocks/professional-information.mock';
@@ -6,10 +6,12 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@shared/directives/button';
 import { TitleCollapseProfessionalInformationPipe } from '@shared/pipes';
+import { ProfessionalInfo } from './models/professional-information.model';
+
 import {
 	GetCategoryDescriptionPipe,
-	GetJobLevelDescriptionPipe,
-	GetJobTypeDescriptionPipe,
+	Getjob_levelDescriptionPipe,
+	Getjob_typeDescriptionPipe,
 	GetLocationDescriptionPipe,
 } from '@features/graduates/professional-information/pipes';
 
@@ -22,9 +24,9 @@ import {
 		DatePipe,
 		CurrencyPipe,
 		RouterLink,
-		GetJobLevelDescriptionPipe,
+		Getjob_levelDescriptionPipe,
 		GetLocationDescriptionPipe,
-		GetJobTypeDescriptionPipe,
+		Getjob_typeDescriptionPipe,
 		GetCategoryDescriptionPipe,
 		ButtonDirective,
 		TitleCollapseProfessionalInformationPipe,
@@ -32,6 +34,15 @@ import {
 	templateUrl: './professional-information.component.html',
 	styleUrl: './professional-information.component.scss',
 })
-export class ProfessionalInformationComponent {
+export class ProfessionalInformationComponent implements OnInit {
 	data = PROFESSIONAL_INFO_MOCK;
+	professionalInfo: ProfessionalInfo;
+
+	constructor() {
+		//this.professionalInfo = new ProfessionalInfo();
+	}
+
+	ngOnInit(): void {
+		this.professionalInfo;
+	}
 }

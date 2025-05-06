@@ -7,6 +7,6 @@ import { ProfessionalInfo } from '@features/graduates/professional-information/m
 })
 export class TitleCollapseProfessionalInformationPipe implements PipeTransform {
 	transform(professionalInfo: Partial<ProfessionalInfo>): string {
-		return professionalInfo?.companyName + ' - ' + professionalInfo?.jobTitle;
+		return professionalInfo?.company_name + ' - ' + professionalInfo?.job_title;
 	}
 }

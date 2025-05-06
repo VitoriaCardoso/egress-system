@@ -22,28 +22,31 @@
 <ng-template #templateRef let-history>
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Nome da Instituição" [value]="history?.institutionName"></app-item-info>
+			<app-item-info label="Nome da Instituição" [value]="history?.institution_name"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-item-info
 				label="Tipo de Instituição"
-				[value]="history?.institutionType | getInstitutionTypeDescription"
+				[value]="history?.institution_type | getinstitution_typeDescription"
 			></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Nome do Curso" [value]="history?.courseName"></app-item-info>
+			<app-item-info label="Nome do Curso" [value]="history?.course_name"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Nível do Curso" [value]="history?.courseLevel | getCourseLevelDescription"></app-item-info>
+			<app-item-info
+				label="Nível do Curso"
+				[value]="history?.course_level | getcourse_levelDescription"
+			></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-item-info label="País" [value]="history?.country"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Data de Ingresso" [value]="history?.startDate | date: 'dd/MM/y'"></app-item-info>
+			<app-item-info label="Data de Ingresso" [value]="history?.start_date | date: 'dd/MM/y'"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Data de Conclusão" [value]="history?.endDate | date: 'dd/MM/y'"></app-item-info>
+			<app-item-info label="Data de Conclusão" [value]="history?.end_date | date: 'dd/MM/y'"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-item-info label="Estado" [value]="history?.state"></app-item-info>
@@ -52,7 +55,7 @@
 			<app-item-info label="Cidade" [value]="history?.city"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Matrícula" [value]="history?.registrationNumber || '--'"></app-item-info>
+			<app-item-info label="Matrícula" [value]="history?.matricula || '--'"></app-item-info>
 		</div>
 	</div>
 </ng-template>

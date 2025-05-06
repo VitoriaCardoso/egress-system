@@ -8,10 +8,10 @@ import { getInitials } from '@shared/utils/string.utils';
 })
 export class TitleCollapseAcademicInformationPipe implements PipeTransform {
 	transform(academicInformation: Partial<AcademicInformation>): string {
-		if (!academicInformation.courseName && !academicInformation.institutionName) {
+		if (!academicInformation.course_name && !academicInformation.institution_name) {
 			return '';
 		}
 
-		return (academicInformation?.courseName || '') + ' - ' + getInitials(academicInformation?.institutionName || '');
+		return (academicInformation?.course_name || '') + ' - ' + getInitials(academicInformation?.institution_name || '');
 	}
 }

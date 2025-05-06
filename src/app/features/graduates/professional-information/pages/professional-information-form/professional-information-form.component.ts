@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DateTimePickerComponent } from '@shared/components/date-time-picker/date-time-picker.component';
@@ -7,6 +7,8 @@ import { SelectComponent } from '@shared/components/select/select.component';
 import { AlertService } from '@shared/components/alert/alert.service';
 import { SelectOptions } from '@shared/models/select.model';
 import { ButtonDirective } from '@shared/directives/button';
+import { ProfessionalInfo } from '../../models/professional-information.model';
+import { ProfessionalInformationService } from '../../service/professional-information.service';
 import {
 	CATEGORY_OPTIONS_MOCK,
 	JOB_LEVEL_OPTIONS_MOCK,
@@ -33,13 +35,14 @@ import { HasErrorPipe } from '@shared/pipes';
 	templateUrl: './professional-information-form.component.html',
 	styleUrl: './professional-information-form.component.scss',
 })
-export class ProfessionalInformationFormComponent {
+export class ProfessionalInformationFormComponent implements OnInit {
 	form: FormGroup;
 	data = PROFESSIONAL_INFO_MOCK;
+	professionalInfo: ProfessionalInfo;
 	mode = signal<'create' | 'edit'>('create');
 	id?: string;
-	jobLevelOptions: SelectOptions = JOB_LEVEL_OPTIONS_MOCK;
-	jobTypeOptions: SelectOptions = JOB_TYPE_OPTIONS_MOCK;
+	job_levelOptions: SelectOptions = JOB_LEVEL_OPTIONS_MOCK;
+	job_typeOptions: SelectOptions = JOB_TYPE_OPTIONS_MOCK;
 	categoryOptions: SelectOptions = CATEGORY_OPTIONS_MOCK;
 	locationOptions: SelectOptions = LOCATION_OPTIONS_MOCK;
 	relatedAcademicInfoOptions: SelectOptions = RELATED_ACADEMIC_INFO_OPTIONS;
@@ -49,21 +52,16 @@ export class ProfessionalInformationFormComponent {
 	router = inject(Router);
 	alertService = inject(AlertService);
 
-	constructor() {
-		this.form = new FormGroup({
-			companyName: new FormControl(null, [Validators.required]),
-			jobTitle: new FormControl(null, [Validators.required]),
-			jobLevel: new FormControl(null, [Validators.required]),
-			jobType: new FormControl(null, [Validators.required]),
-			category: new FormControl(null, [Validators.required]),
-			location: new FormControl(null, [Validators.required]),
-			startDate: new FormControl(null, [Validators.required]),
-			endDate: new FormControl(null),
-			salary: new FormControl(null),
-			function: new FormControl(null),
-			relatedAcademicInfo: new FormControl(null, [Validators.required]),
-		});
+	constructor(private service: ProfessionalInformationService) {}
 
+	ngOnInit() {
+		this.id = this.route.snapshot.paramMap.get('id');
+		this.inicializarFormulario();
+		this.carregarInformacaoProfissonal();
+		this.criarEditarFormulario();
+	}
+
+	criarEditarFormulario() {
 		this.route.paramMap.subscribe(params => {
 			const id = params.get('id');
 
@@ -71,16 +69,80 @@ export class ProfessionalInformationFormComponent {
 			this.id = id;
 
 			if (id) {
-				const data = PROFESSIONAL_INFO_MOCK.find(item => item.id.toString() === id);
-				if (data) {
-					this.form.patchValue({
-						...data,
-						startDate: data.startDate ? new Date(data.startDate).toLocaleDateString() : '',
-						endDate: data.endDate ? new Date(data.endDate).toLocaleDateString() : '',
-					});
-				}
+				this.service.listarPorId(id).subscribe({
+					next: data => {
+						if (Array.isArray(data) && data.length > 0) {
+							const info: ProfessionalInfo = data[0];
+
+							this.form.patchValue({
+								company_name: info.company_name,
+								job_title: info.job_title || '',
+								job_level: info.job_level,
+								job_type: info.job_type || '',
+								category: info.category,
+								location: info.location,
+								start_date: info.start_date,
+								end_date: info.end_date,
+								salary: info.salary,
+								function: info.function,
+								relatedAcademicInfo: info.relatedAcademicInfo,
+							});
+						}
+					},
+					error: err => {
+						console.error('Erro ao buscar dados para edição:', err);
+					},
+				});
 			}
 		});
+	}
+
+	inicializarFormulario() {
+		this.form = new FormGroup({
+			company_name: new FormControl(null, [Validators.required]),
+			job_title: new FormControl(null, [Validators.required]),
+			job_level: new FormControl(null, [Validators.required]),
+			job_type: new FormControl(null, [Validators.required]),
+			category: new FormControl(null, [Validators.required]),
+			location: new FormControl(null, [Validators.required]),
+			start_date: new FormControl(null, [Validators.required]),
+			end_date: new FormControl(null),
+			salary: new FormControl(null),
+			function: new FormControl(null),
+			relatedAcademicInfo: new FormControl(null, [Validators.required]),
+		});
+	}
+
+	carregarInformacaoProfissonal() {
+		if (!this.id) {
+			console.error('Nenhum ID foi encontrado na rota.');
+			return;
+		}
+
+		this.service.listarPorId(this.id).subscribe(
+			data => {
+				console.log('Dados recebidos:', data);
+
+				this.professionalInfo = data;
+
+				this.form.patchValue({
+					company_name: this.professionalInfo.company_name,
+					job_title: this.professionalInfo.job_title || '',
+					job_level: this.professionalInfo.job_level,
+					job_type: this.professionalInfo.job_type || '',
+					category: this.professionalInfo.category,
+					location: this.professionalInfo.location,
+					start_date: this.professionalInfo.start_date,
+					end_date: this.professionalInfo.end_date || '',
+					salary: this.professionalInfo.salary,
+					function: this.professionalInfo.function,
+					relatedAcademicInfo: this.professionalInfo.relatedAcademicInfo,
+				});
+			},
+			error => {
+				console.error('Erro ao buscar dados:', error);
+			}
+		);
 	}
 
 	onSubmit() {
@@ -90,12 +152,28 @@ export class ProfessionalInformationFormComponent {
 			return;
 		}
 
-		console.log(this.form.value);
-		this.alertService.showAlert('success', 'Dados salvos com êxito!', 'Sucesso.');
-		this.router.navigate(['/informacoes/profissionais']);
-	}
+		const formData = this.form.value;
 
-	onDelete() {
-		console.log('Delete');
+		if (this.mode() === 'create') {
+			this.service.criar(formData).subscribe({
+				next: () => {
+					this.alertService.showAlert('success', 'Informação profissional criada com sucesso!', 'Sucesso.');
+					this.router.navigate(['/informacoes/profissionais']);
+				},
+				error: () => {
+					this.alertService.showAlert('danger', 'Erro ao salvar os dados.', 'Erro.');
+				},
+			});
+		} else if (this.mode() === 'edit' && this.id) {
+			this.service.atualizar(this.id, formData).subscribe({
+				next: () => {
+					this.alertService.showAlert('success', 'Informação profissional atualizada com sucesso!', 'Sucesso.');
+					this.router.navigate(['/informacoes/profissionais']);
+				},
+				error: () => {
+					this.alertService.showAlert('danger', 'Erro ao atualizar os dados.', 'Erro.');
+				},
+			});
+		}
 	}
 }

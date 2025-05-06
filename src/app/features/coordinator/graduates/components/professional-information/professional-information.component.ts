@@ -6,8 +6,8 @@ import { PROFESSIONAL_INFO_MOCK } from '@app/features/graduates/professional-inf
 import { TitleCollapseProfessionalInformationPipe } from '@shared/pipes';
 import {
 	GetCategoryDescriptionPipe,
-	GetJobLevelDescriptionPipe,
-	GetJobTypeDescriptionPipe,
+	Getjob_levelDescriptionPipe,
+	Getjob_typeDescriptionPipe,
 	GetLocationDescriptionPipe,
 } from '@features/graduates/professional-information/pipes';
 
@@ -19,9 +19,9 @@ import {
 		CollapseItemComponent,
 		CurrencyPipe,
 		GetCategoryDescriptionPipe,
-		GetJobTypeDescriptionPipe,
+		Getjob_typeDescriptionPipe,
 		GetLocationDescriptionPipe,
-		GetJobLevelDescriptionPipe,
+		Getjob_levelDescriptionPipe,
 		DatePipe,
 		NgTemplateOutlet,
 		TitleCollapseProfessionalInformationPipe,

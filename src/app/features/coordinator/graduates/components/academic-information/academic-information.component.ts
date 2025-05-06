@@ -4,9 +4,10 @@ import { CollapseItemComponent } from '@shared/components/collapse-item/collapse
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { TitleCollapseAcademicInformationPipe } from '@shared/pipes';
 import { EDUCATION_HISTORY_MOCK } from '@features/graduates/academic-information/mocks/academic-information.mock';
+import { AcademicInformation } from '@features/graduates/academic-information/models/academic-information.model';
 import {
-	GetCourseLevelDescriptionPipe,
-	GetInstitutionTypeDescriptionPipe,
+	Getcourse_levelDescriptionPipe,
+	Getinstitution_typeDescriptionPipe,
 } from '@features/graduates/academic-information/pipes';
 
 @Component({
@@ -15,8 +16,8 @@ import {
 	imports: [
 		ItemInfoComponent,
 		CollapseItemComponent,
-		GetInstitutionTypeDescriptionPipe,
-		GetCourseLevelDescriptionPipe,
+		Getinstitution_typeDescriptionPipe,
+		Getcourse_levelDescriptionPipe,
 		DatePipe,
 		NgTemplateOutlet,
 		TitleCollapseAcademicInformationPipe,
@@ -26,4 +27,5 @@ import {
 })
 export class AcademicInformationComponent {
 	data = EDUCATION_HISTORY_MOCK;
+	informacaoAcademica: AcademicInformation[] = [];
 }

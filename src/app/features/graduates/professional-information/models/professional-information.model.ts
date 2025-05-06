@@ -1,13 +1,13 @@
 export interface ProfessionalInfo {
 	id: number;
-	companyName: string;
+	company_name: string;
 	category: string;
-	jobType: string;
+	job_type: string;
 	location: string;
-	jobTitle: string;
-	jobLevel: string;
-	startDate: Date;
-	endDate?: Date;
+	job_title: string;
+	job_level: string;
+	start_date: Date;
+	end_date?: Date;
 	salary?: number;
 	function?: string;
 	relatedAcademicInfo: string;
@@ -19,14 +19,14 @@ export enum CategoryEnum {
 	NGO = 'ngo',
 }
 
-export enum JobTypeEnum {
+export enum job_typeEnum {
 	FULL_TIME = 'full_time',
 	PART_TIME = 'part_time',
 	CONTRACT = 'contract',
 	FREELANCER = 'freelancer',
 }
 
-export enum JobLevelEnum {
+export enum job_levelEnum {
 	JUNIOR = 'junior',
 	MID_LEVEL = 'mid_level',
 	SENIOR = 'senior',

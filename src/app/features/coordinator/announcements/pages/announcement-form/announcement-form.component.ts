@@ -8,7 +8,7 @@ import { SelectComponent } from '@shared/components/select/select.component';
 import { MultiSelectComponent } from '@shared/components/multi-select/multi-select.component';
 import { CheckboxComponent } from '@shared/components/checkbox/checkbox.component';
 import { TypeRecipientsEnum } from '@app/features/coordinator/announcements/models/announcements.model';
-import { COURSE_LEVEL_OPTIONS_MOCK, COURSE_OPTIONS_MOCK } from '@shared/mocks';
+import { course_level_OPTIONS_MOCK, COURSE_OPTIONS_MOCK } from '@shared/mocks';
 import { FeedbackDirective } from '@shared/directives/feedback';
 import { ButtonDirective } from '@shared/directives/button';
 import {
@@ -45,7 +45,7 @@ export class AnnouncementFormComponent implements OnInit, OnDestroy {
 		levels: new FormControl([]),
 	});
 	coursesOptions = COURSE_OPTIONS_MOCK;
-	levelsOptions = COURSE_LEVEL_OPTIONS_MOCK;
+	levelsOptions = course_level_OPTIONS_MOCK;
 	checkAll = false;
 	editor: Editor;
 	toolbar: Toolbar = [

@@ -1,16 +1,16 @@
 import { SelectOptions } from '../models/select.model';
-import { CourseLevelEnum } from '../enums/course-level.enum';
+import { course_levelEnum } from '../enums/course-level.enum';
 
-export const COURSE_LEVEL_OPTIONS_MOCK: SelectOptions = [
-	{ label: 'Graduação', value: CourseLevelEnum.GRADUATION },
-	{ label: 'Mestrado', value: CourseLevelEnum.MASTER },
-	{ label: 'Doutorado', value: CourseLevelEnum.DOCTORATE },
-	{ label: 'Pós-Doutorado', value: CourseLevelEnum.POST_DOCTORATE },
-	{ label: 'Especialização', value: CourseLevelEnum.SPECIALIZATION },
-	{ label: 'Curso Técnico', value: CourseLevelEnum.TECHNICAL_COURSE },
-	{ label: 'Curso Tecnólogo', value: CourseLevelEnum.ASSOCIATE_DEGREE },
-	{ label: 'Bacharelado', value: CourseLevelEnum.BACHELOR },
-	{ label: 'Licenciatura', value: CourseLevelEnum.LICENTIATE },
-	{ label: 'MBA', value: CourseLevelEnum.MBA },
-	{ label: 'Outro', value: CourseLevelEnum.OTHER },
+export const course_level_OPTIONS_MOCK: SelectOptions = [
+	{ label: 'Graduação', value: course_levelEnum.GRADUATION },
+	{ label: 'Mestrado', value: course_levelEnum.MASTER },
+	{ label: 'Doutorado', value: course_levelEnum.DOCTORATE },
+	{ label: 'Pós-Doutorado', value: course_levelEnum.POST_DOCTORATE },
+	{ label: 'Especialização', value: course_levelEnum.SPECIALIZATION },
+	{ label: 'Curso Técnico', value: course_levelEnum.TECHNICAL_COURSE },
+	{ label: 'Curso Tecnólogo', value: course_levelEnum.ASSOCIATE_DEGREE },
+	{ label: 'Bacharelado', value: course_levelEnum.BACHELOR },
+	{ label: 'Licenciatura', value: course_levelEnum.LICENTIATE },
+	{ label: 'MBA', value: course_levelEnum.MBA },
+	{ label: 'Outro', value: course_levelEnum.OTHER },
 ];

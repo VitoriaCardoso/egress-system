@@ -5,7 +5,7 @@
 			<app-input id="name" label="Nome" formControlName="name"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="socialName" label="Nome Social" formControlName="socialName"></app-input>
+			<app-input id="nome_social" label="Nome Social" formControlName="nome_social"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-input id="cpf" label="CPF" formControlName="cpf"></app-input>
@@ -16,8 +16,8 @@
 			<app-input id="email" label="E-mail" type="email" formControlName="email"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="secondaryEmail" label="E-mail Secundário" type="email" formControlName="secondaryEmail">
-				@if (form.get('secondaryEmail').hasError('email')) {
+			<app-input id="email_secundario" label="E-mail Secundário" type="email" formControlName="email_secundario">
+				@if (form.get('email_secundario').hasError('email')) {
 					<span br-feedback state="warning"> E-mail inválido </span>
 				}
 			</app-input>
@@ -27,22 +27,22 @@
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-input
-				id="secondaryPhone"
+				id="telefone_secundario"
 				label="Telefone Secundário"
 				mask="(00) 00000-0000"
-				formControlName="secondaryPhone"
+				formControlName="telefone_secundario"
 			></app-input>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-input id="lattesLink" label="Link do Lattes" formControlName="lattesLink"></app-input>
+			<app-input id="link_lattes" label="Link do Lattes" formControlName="link_lattes"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="orcidLink" label="Link do ORCID" formControlName="orcidLink"></app-input>
+			<app-input id="link_orcid" label="Link do ORCID" formControlName="link_orcid"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="linkedinLink" label="Link do LinkedIn" formControlName="linkedinLink"></app-input>
+			<app-input id="link_linkedin" label="Link do LinkedIn" formControlName="link_linkedin"></app-input>
 		</div>
 		<div class="col-12 col-lg-3 d-flex align-items-end justify-content-lg-end justify-content-center mt-4 mt-md-0">
 			<button br-button color="primary">Salvar</button>

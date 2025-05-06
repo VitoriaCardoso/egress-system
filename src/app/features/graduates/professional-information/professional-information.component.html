@@ -8,7 +8,7 @@
 			<button
 				br-button
 				size="small"
-				[routerLink]="['/informacoes/profissionais/editar/', info.id]"
+				[routerLink]="['/informacoes/profissionais/editar/', '6998bee2-d4d4-4b06-b77e-41cdfde883d4']"
 				color="secondary"
 				icon="fa-edit"
 			>
@@ -17,29 +17,29 @@
 		</div>
 		<div class="row">
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Nome da Empresa" [value]="info.companyName"></app-item-info>
+				<app-item-info label="Nome da Empresa" [value]="info.company_name"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
 				<app-item-info label="Categoria" [value]="info.category | getCategoryDescription"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Tipo de Emprego" [value]="info.jobType | getJobTypeDescription"></app-item-info>
+				<app-item-info label="Tipo de Emprego" [value]="info.job_type | getjob_typeDescription"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
 				<app-item-info label="Localidade" [value]="info.location | getLocationDescription"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Cargo" [value]="info.jobTitle"></app-item-info>
+				<app-item-info label="Cargo" [value]="info.job_title"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Nível de Cargo" [value]="info.jobLevel | getJobLevelDescription"></app-item-info>
+				<app-item-info label="Nível de Cargo" [value]="info.job_level | getjob_levelDescription"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Data de Início" [value]="info.startDate | date: 'dd/MM/y'"></app-item-info>
+				<app-item-info label="Data de Início" [value]="info.start_date | date: 'dd/MM/y'"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				@if (info.endDate) {
-					<app-item-info label="Data de Término" [value]="info.endDate | date: 'dd/MM/y'"></app-item-info>
+				@if (info.end_date) {
+					<app-item-info label="Data de Término" [value]="info.end_date | date: 'dd/MM/y'"></app-item-info>
 				} @else {
 					<app-item-info label="Data de Término" value="--"></app-item-info>
 				}

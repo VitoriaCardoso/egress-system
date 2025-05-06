@@ -6,7 +6,7 @@ import { ACADEMIC_SEMESTER_OPTIONS_MOCK } from '../../data/options.mock';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonDirective } from '@shared/directives/button';
 import { FilterModel } from '../../models/filter.model';
-import { CAMPUS_OPTIONS_MOCK, COURSE_LEVEL_OPTIONS_MOCK } from '@shared/mocks';
+import { CAMPUS_OPTIONS_MOCK, course_level_OPTIONS_MOCK } from '@shared/mocks';
 import { COURSE_OPTIONS_MOCK } from '@shared/mocks/course.mock';
 
 @Component({
@@ -29,7 +29,7 @@ import { COURSE_OPTIONS_MOCK } from '@shared/mocks/course.mock';
 export class FilterComponent {
 	academicSemesterOptions = ACADEMIC_SEMESTER_OPTIONS_MOCK;
 	courseOptions = COURSE_OPTIONS_MOCK;
-	courseLevelOptions = COURSE_LEVEL_OPTIONS_MOCK;
+	course_levelOptions = course_level_OPTIONS_MOCK;
 	campusOptions = CAMPUS_OPTIONS_MOCK;
 
 	formGroupFilter = new FormGroup<FilterModel>({

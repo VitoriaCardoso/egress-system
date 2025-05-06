@@ -14,7 +14,7 @@ export const users: Array<Credentials> = [
 		role: Role.STUDENT,
 		accessToken: 'bearer token',
 		fullName: 'Aluno',
-		document: '98765432100',
+		document: '123.456.789-14',
 	},
 	{
 		username: 'publico',

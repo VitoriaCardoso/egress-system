@@ -1,4 +1,4 @@
-export enum CourseLevelEnum {
+export enum course_levelEnum {
 	GRADUATION = 'graduation',
 	MASTER = 'master',
 	DOCTORATE = 'doctorate',

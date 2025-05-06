@@ -12,32 +12,45 @@ const KEY_STORAGE = 'credentials';
 export class AuthService {
 	private localStorage = inject(LocalStorageService);
 	private router = inject(Router);
+
 	credentials = signal<Credentials | null>(null);
 	credentials$ = toObservable(this.credentials);
+
 	isStudent = computed(() => this.credentials()?.role === Role.STUDENT);
 	isCoordinator = computed(() => this.credentials()?.role === Role.COORDINATOR);
 	isPublic = computed(() => !this.credentials() || this.credentials()?.role === Role.PUBLIC);
 
 	constructor() {
+		// Carrega os dados do localStorage ao iniciar o serviço
 		this.credentials.set(this.localStorage.getParseItem<Credentials>(KEY_STORAGE));
 	}
 
 	setCredentials(credentials: Credentials): void {
-		this.credentials.set(credentials);
-
-		this.localStorage.setItem(KEY_STORAGE, credentials);
+		if (credentials.document) {
+			this.credentials.set(credentials);
+			this.localStorage.setItem(KEY_STORAGE, JSON.stringify(credentials));
+		} else {
+			console.error('CPF não encontrado nas credenciais!');
+			this.credentials.set({
+				...credentials,
+				document: '00000000000',
+			});
+			this.localStorage.setItem(KEY_STORAGE, JSON.stringify(this.credentials()));
+		}
 	}
 
 	logout(redirect = true): void {
 		this.credentials.set(null);
-
 		this.localStorage.removeItem(KEY_STORAGE);
-
 		if (redirect) this.router.navigate(['/login']);
 	}
 
 	get isAuthenticated(): boolean {
 		return !!this.credentials()?.accessToken;
+	}
+
+	getCpf(): string | null {
+		return this.credentials()?.document || null;
 	}
 
 	canActivate(): boolean {
@@ -52,11 +65,11 @@ export class AuthService {
 			this.router.navigate(['/login']);
 			return false;
 		}
-
 		return true;
 	}
 }
 
+// Guards
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 	return inject(AuthService).canActivate();
 };

@@ -36,6 +36,7 @@
 		"@fortawesome/fontawesome-free": "^5.15.4",
 		"@govbr-ds/core": "^3.6.1",
 		"chart.js": "^4.4.7",
+		"date-fns": "^4.1.0",
 		"dayjs": "^1.11.12",
 		"express": "^4.21.2",
 		"ng2-charts": "^6.0.1",

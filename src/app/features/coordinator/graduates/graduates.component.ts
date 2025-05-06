@@ -23,12 +23,12 @@ export class GraduatesComponent {
 		{
 			columnDef: 'course_name',
 			header: 'Nome do Curso',
-			cell: (element: Graduate) => `${element.courseName}`,
+			cell: (element: Graduate) => `${element.course_name}`,
 		},
 		{
 			columnDef: 'course_level',
 			header: 'Nível do Curso',
-			cell: (element: Graduate) => `${element.courseLevel}`,
+			cell: (element: Graduate) => `${element.course_level}`,
 		},
 		{
 			columnDef: 'campus',

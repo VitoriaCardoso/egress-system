@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { COURSE_LEVEL_OPTIONS_MOCK } from '../../../../shared/mocks/titration.mock';
+import { course_level_OPTIONS_MOCK } from '../../../../shared/mocks/titration.mock';
 import { getLabelByValue } from '../../../../shared/utils/option-label.utils';
-import { CourseLevelEnum } from '../../../../shared/enums/course-level.enum';
+import { course_levelEnum } from '../../../../shared/enums/course-level.enum';
 
 @Pipe({
-	name: 'getCourseLevelDescription',
+	name: 'getcourse_levelDescription',
 	standalone: true,
 })
-export class GetCourseLevelDescriptionPipe implements PipeTransform {
-	transform(value: CourseLevelEnum | string): string {
-		return getLabelByValue(value, COURSE_LEVEL_OPTIONS_MOCK);
+export class Getcourse_levelDescriptionPipe implements PipeTransform {
+	transform(value: course_levelEnum | string): string {
+		return getLabelByValue(value, course_level_OPTIONS_MOCK);
 	}
 }
