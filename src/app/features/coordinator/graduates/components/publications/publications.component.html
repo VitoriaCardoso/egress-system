@@ -21,22 +21,26 @@
 			<app-item-info label="Título da Publicação" [value]="publication.title"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Autores" [value]="publication.authors"></app-item-info>
+			<app-item-info label="Autores" [value]="publication.autores"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Ano da Publicação" [value]="publication.year.toString()"></app-item-info>
+			<app-item-info label="Ano da Publicação" [value]="publication.ano_publicacao.toString()"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Veículo" [value]="publication.journal"></app-item-info>
+			<app-item-info label="Veículo" [value]="publication.veiculo"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="URL da Publicação" type="url" [value]="publication.url"></app-item-info>
+			<app-item-info
+				label="URL da Publicação"
+				type="url_publicacao"
+				[value]="publication.url_publicacao"
+			></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Curso" [value]="publication.relatedAcademicInfo"></app-item-info>
+			<app-item-info label="Curso" [value]="publication.informacao_academica"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Identificador" [value]="publication.identifier"></app-item-info>
+			<app-item-info label="Identificador" [value]="publication.matricula"></app-item-info>
 		</div>
 	</div>
 </ng-template>

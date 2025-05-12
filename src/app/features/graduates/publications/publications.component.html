@@ -5,7 +5,7 @@
 <h1>Publicações</h1>
 
 @for (publication of data; track publication.id; let first = $first) {
-	<app-collapse-item [label]="publication.title" [id]="publication.id.toString()" [expanded]="first">
+	<app-collapse-item [label]="publication.titulo" [id]="publication.id.toString()" [expanded]="first">
 		<div class="btn-edit">
 			<button
 				size="small"
@@ -20,25 +20,25 @@
 
 		<div class="row">
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Título da Publicação" [value]="publication.title"></app-item-info>
+				<app-item-info label="Título da Publicação" [value]="publication.titulo"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Autores" [value]="publication.authors"></app-item-info>
+				<app-item-info label="Autores" [value]="publication.autores"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Ano da Publicação" [value]="publication.year.toString()"></app-item-info>
+				<app-item-info label="Ano da Publicação" [value]="publication.ano_publicacao"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Veículo" [value]="publication.journal"></app-item-info>
+				<app-item-info label="Veículo" [value]="publication.veiculo"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info type="url" label="URL da Publicação" [value]="publication.url"></app-item-info>
+				<app-item-info type="url" label="URL da Publicação" [value]="publication.url_publicacao"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Curso" [value]="publication.relatedAcademicInfo"></app-item-info>
+				<app-item-info label="Curso" [value]="publication.informacao_academica.course_name"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Identificador" [value]="publication.identifier"></app-item-info>
+				<app-item-info label="Identificador" [value]="publication.informacao_academica.matricula"></app-item-info>
 			</div>
 		</div>
 	</app-collapse-item>

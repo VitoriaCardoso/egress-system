@@ -2,18 +2,18 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-edit">
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-input id="name" label="Nome" formControlName="name"></app-input>
+			<app-input id="nome" label="Nome" formControlName="nome"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-input id="nome_social" label="Nome Social" formControlName="nome_social"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="cpf" label="CPF" formControlName="cpf"></app-input>
+			<app-input id="cpf" label="CPF" formControlName="cpf" [readonly]="true"></app-input>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-input id="email" label="E-mail" type="email" formControlName="email"></app-input>
+			<app-input id="email" label="E-mail" formControlName="email" [readonly]="true"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-input id="email_secundario" label="E-mail Secundário" type="email" formControlName="email_secundario">
@@ -23,7 +23,7 @@
 			</app-input>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-input id="phone" label="Telefone" mask="(00) 00000-0000" formControlName="phone"></app-input>
+			<app-input id="telefone" label="Telefone" mask="(00) 00000-0000" formControlName="telefone"></app-input>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-input

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AcademicInformation } from '@features/graduates/academic-information/models/academic-information.model';
+import { SelectOption } from '../../../../shared/models/select.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,6 +22,10 @@ export class InformacaoAcademicaService {
 
 	buscarPorInformacaoAcademica(id: string): Observable<AcademicInformation[]> {
 		return this.http.get<AcademicInformation[]>(`${this.apiUrl}/editar/${id}`);
+	}
+
+	buscarCursoPorCpf(cpf: string): Observable<SelectOption[]> {
+		return this.http.get<SelectOption[]>(`${this.apiUrl}/cursos/${cpf}`);
 	}
 
 	criarInformacaoAcademica(data: AcademicInformation): Observable<AcademicInformation> {

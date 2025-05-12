@@ -10,6 +10,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AlertService } from '@shared/components/alert/alert.service';
 import { ButtonDirective } from '@shared/directives/button';
 import { FeedbackDirective } from '@shared/directives/feedback';
+import { PublicationsService } from '../../service/publications.service';
+import { AcademicInformation } from '../../../academic-information/models/academic-information.model';
+import { InformacaoAcademicaService } from '../../../academic-information/service/academic-information.service';
+import { Publication } from '../../models/publications.model';
+import { CommonModule } from '@angular/common';
+import { SelectOption } from '../../../../../shared/models/select.model';
 
 @Component({
 	selector: 'app-publications-form',
@@ -23,44 +29,56 @@ import { FeedbackDirective } from '@shared/directives/feedback';
 		RouterLink,
 		ReactiveFormsModule,
 		FeedbackDirective,
+		CommonModule,
 	],
 	templateUrl: './publications-form.component.html',
-	styleUrl: './publications-form.component.scss',
+	styleUrls: ['./publications-form.component.scss'],
 })
 export class PublicationsFormComponent {
 	form: FormGroup;
 	mode = signal<'create' | 'edit'>('create');
-	id?: string;
-	data = PUBLICATION_MOCK;
-	readonly relatedAcademicInfoOptions = RELATED_ACADEMIC_INFO_OPTIONS;
+	opcoes = <SelectOption[]>[];
 
 	private _route = inject(ActivatedRoute);
 	private _router = inject(Router);
 	private _alertService = inject(AlertService);
+	private _publicationsService = inject(PublicationsService);
+	private _informacaoAcademicaService = inject(InformacaoAcademicaService);
 
 	constructor() {
+		const id = this._route.snapshot.paramMap.get('id');
+
 		this.form = new FormGroup({
-			title: new FormControl('', [Validators.required]),
-			authors: new FormControl('', [Validators.required]),
-			year: new FormControl('', [Validators.required]),
-			journal: new FormControl('', [Validators.required]),
-			relatedAcademicInfo: new FormControl('', [Validators.required]),
-			url: new FormControl('', [Validators.required]),
+			titulo: new FormControl('', [Validators.required]),
+			autores: new FormControl('', [Validators.required]),
+			ano_publicacao: new FormControl('', [Validators.required]),
+			veiculo: new FormControl('', [Validators.required]),
+			informacao_academica: new FormControl('', [Validators.required]),
+			url_publicacao: new FormControl('', [Validators.required]),
 		});
 
-		this._route.paramMap.subscribe(params => {
-			const id = params.get('id');
+		const cpf = '123.456.789-14';
 
-			this.mode.set(id ? 'edit' : 'create');
-			this.id = id;
-
-			if (id) {
-				const data = PUBLICATION_MOCK.find(item => item.id.toString() === id);
-				if (data) {
-					this.form.patchValue(data);
-				}
-			}
+		this._informacaoAcademicaService.buscarCursoPorCpf(cpf).subscribe({
+			next: dados => {
+				this.opcoes = dados;
+				console.log(dados);
+			},
+			error: err => console.error('Erro ao buscar cursos:', err),
 		});
+
+		if (id) {
+			this.mode.set('edit');
+			this._publicationsService.buscarPorId(id).subscribe({
+				next: pub => {
+					this.form.patchValue({
+						...pub,
+						informacao_academica: pub.informacao_academica?.id, // o select espera só o id
+					});
+				},
+				error: err => console.error('Erro ao carregar publicação:', err),
+			});
+		}
 	}
 
 	onSubmit() {
@@ -70,8 +88,37 @@ export class PublicationsFormComponent {
 			return;
 		}
 
-		this._alertService.showAlert('success', 'Publicação salva com sucesso!', 'Sucesso.');
-		this._router.navigate(['/publicacoes']);
+		const formValue = this.form.value;
+		const publicacaoDTO = {
+			...formValue,
+			id_informacao_academica: formValue.informacao_academica,
+		};
+
+		const id = this._route.snapshot.paramMap.get('id');
+
+		if (this.mode() === 'edit' && id) {
+			this._publicationsService.atualizar(id, publicacaoDTO).subscribe({
+				next: () => {
+					this._alertService.showAlert('success', 'Publicação atualizada com sucesso!', 'Sucesso.');
+					this._router.navigate(['/publicacoes']);
+				},
+				error: err => {
+					this._alertService.showAlert('danger', 'Erro ao atualizar publicação.', 'Erro.');
+					console.error(err);
+				},
+			});
+		} else {
+			this._publicationsService.criar(publicacaoDTO).subscribe({
+				next: () => {
+					this._alertService.showAlert('success', 'Publicação salva com sucesso!', 'Sucesso.');
+					this._router.navigate(['/publicacoes']);
+				},
+				error: err => {
+					this._alertService.showAlert('danger', 'Erro ao salvar publicação.', 'Erro.');
+					console.error(err);
+				},
+			});
+		}
 	}
 
 	onDelete() {

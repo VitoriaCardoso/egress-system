@@ -1,8 +1,8 @@
 export interface AcademicInformation {
 	id: string;
 	institution_name: string;
-	institution_type: string; //institutionType
-	course_name: string; //courseName
+	institution_type: string;
+	course_name: string;
 	course_level: string;
 	country: string;
 	start_date: string;

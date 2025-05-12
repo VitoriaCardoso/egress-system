@@ -45,7 +45,7 @@ export class ProfessionalInformationFormComponent implements OnInit {
 	job_typeOptions: SelectOptions = JOB_TYPE_OPTIONS_MOCK;
 	categoryOptions: SelectOptions = CATEGORY_OPTIONS_MOCK;
 	locationOptions: SelectOptions = LOCATION_OPTIONS_MOCK;
-	relatedAcademicInfoOptions: SelectOptions = RELATED_ACADEMIC_INFO_OPTIONS;
+	informacaoAcademicaOpcoes: SelectOptions = RELATED_ACADEMIC_INFO_OPTIONS;
 
 	maxDate = new Date();
 	route = inject(ActivatedRoute);

@@ -2,8 +2,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-edit">
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-input id="title" label="Título da Publicação" formControlName="title">
-				@if (form.get('title') | hasError) {
+			<app-input id="titulo" label="Título da Publicação" formControlName="titulo">
+				@if (form.get('titulo') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
@@ -11,21 +11,28 @@
 
 		<div class="col-12 col-lg-6">
 			<app-input
-				id="authors"
+				id="autores"
 				label="Autores"
 				placeholder="Ex: João Pereira; Maria Santos"
 				hint="Insira os nomes dos autores no formato 'Nome Sobrenome', separados por ponto e vírgula. Mantenha a ordem de autoria original."
-				formControlName="authors"
+				formControlName="autores"
 			>
-				@if (form.get('authors') | hasError) {
+				@if (form.get('autores') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
 		</div>
 
 		<div class="col-12 col-lg-3">
-			<app-input inputmode="numeric" type="text" id="year" label="Ano da Publicação" mask="0000" formControlName="year">
-				@if (form.get('year') | hasError) {
+			<app-input
+				inputmode="numeric"
+				type="text"
+				id="ano_publicacao"
+				label="Ano da Publicação"
+				mask="0000"
+				formControlName="ano_publicacao"
+			>
+				@if (form.get('ano_publicacao') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
@@ -34,35 +41,41 @@
 
 	<div class="row">
 		<div class="col-12 col-lg-3">
-			<app-input id="journal" label="Veículo" formControlName="journal">
-				@if (form.get('journal') | hasError) {
+			<app-input id="veiculo" label="Veículo" formControlName="veiculo">
+				@if (form.get('veiculo') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
 		</div>
 
 		<div class="col-12 col-lg-3">
-			<app-input inputmode="url" id="url" label="URL da Publicação" formControlName="url">
-				@if (form.get('url') | hasError) {
+			<app-input
+				inputmode="url_publicacao"
+				id="url_publicacao"
+				label="URL da Publicação"
+				formControlName="url_publicacao"
+			>
+				@if (form.get('url_publicacao') | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-input>
 		</div>
 
 		<div class="col-12 col-lg-3">
-			@if (relatedAcademicInfoOptions.length > 1) {
-				<app-select
-					[options]="relatedAcademicInfoOptions"
-					id="relatedAcademicInfo"
-					label="Curso Relacionado"
-					formControlName="relatedAcademicInfo"
-				>
-					@if (form.get('relatedAcademicInfo') | hasError) {
-						<span br-feedback state="danger">Campo obrigatório</span>
-					}
-				</app-select>
-			}
+			<app-select
+				*ngIf="opcoes.length > 0"
+				[options]="opcoes"
+				id="course_name"
+				label="Curso Relacionado"
+				formControlName="informacao_academica"
+				valueField="value"
+			>
+				<span *ngIf="form.get('informacao_academica')?.hasError('required')" br-feedback state="danger">
+					Campo obrigatório
+				</span>
+			</app-select>
 		</div>
+
 		<div
 			class="col-12 col-lg-3 d-flex align-items-end justify-content-lg-end justify-content-center mt-4 mt-md-0 gap-3 h-auto"
 		>

@@ -1,39 +1,40 @@
-<div id="btn-edit-profile">
+<div class="btn-edit">
 	<button [routerLink]="['/perfil/editar']" br-button color="secondary" icon="fa-edit">Editar Informações</button>
 </div>
+
 <h1>Informações Pessoais</h1>
-<div class="row">
-	<div class="col-12 col-lg-3">
-		<app-item-info label="Nome" [value]="data.nome"></app-item-info>
+
+@if (data) {
+	<div class="row">
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Nome" [value]="data.nome"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Nome Social" [value]="data.nome_social"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="CPF" [value]="data.cpf"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="E-mail" [value]="data.email"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="E-mail Secundário" [value]="data.email_secundario || '--'"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Telefone" [value]="data.telefone"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Telefone Secundário" [value]="data.telefone_secundario || '--'"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Link do Lattes" [value]="data.link_lattes || '--'"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Link do ORCID" [value]="data.link_orcid || '--'"></app-item-info>
+		</div>
+		<div class="col-12 col-lg-3">
+			<app-item-info label="Link do LinkedIn" [value]="data.link_linkedin || '--'"></app-item-info>
+		</div>
 	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info label="Nome Social" [value]="data.nome_social"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info label="CPF" [value]="data.cpf"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info label="E-mail" [value]="data.email"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info label="E-mail Secundário" [value]="data.email_secundario"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info label="Telefone" [value]="data.telefone"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info label="Telefone Secundário" [value]="data.telefone_secundario"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info type="email" label="Link do Lattes" [value]="data.link_lattes"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info type="email" label="Link do ORCID" [value]="data.link_orcid"></app-item-info>
-	</div>
-	<div class="col-12 col-lg-3">
-		<app-item-info type="email" label="Link do LinkedIn" [value]="data.link_linkedin"></app-item-info>
-	</div>
-</div>
-<div id="btn-edit-profile-mobile">
-	<button [routerLink]="['/perfil/editar']" br-button size="large" color="secondary">Editar informações</button>
-</div>
+}

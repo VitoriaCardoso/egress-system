@@ -46,7 +46,7 @@ export class TestimonialsFormComponent {
 	route = inject(ActivatedRoute);
 	router = inject(Router);
 	alertService = inject(AlertService);
-	relatedAcademicInfoOptions: SelectOptions = RELATED_ACADEMIC_INFO_OPTIONS;
+	informacaoAcademicaOpcoes: SelectOptions = RELATED_ACADEMIC_INFO_OPTIONS;
 	privacyOptions = PRIVACY_OPTIONS;
 	dialog = inject(Dialog);
 
