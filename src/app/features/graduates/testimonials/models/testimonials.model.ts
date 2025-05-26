@@ -1,19 +1,21 @@
+import { AcademicInformation } from '../../academic-information/models/academic-information.model';
+
 export interface Testimonial {
 	id: string;
-	text: string;
-	relatedAcademicInfo: string;
-	privacy: string;
-	registrationDate: string;
+	texto_depoimento: string;
+	informacaoAcademica: AcademicInformation;
+	privacidade: string;
+	data_cadastro?: string;
 }
 
 export interface TestimonialForm {
-	text: string;
+	texto_depoimento: string;
 	course_name: string;
-	privacy: string;
+	privacidade: string;
 }
 
 export enum PrivacyEnum {
-	PUBLIC = 'public',
-	PRIVATE = 'private',
-	ANONYMOUS = 'anonymous',
+	PUBLIC = 'Público',
+	PRIVATE = 'Privado',
+	ANONYMOUS = 'Anônimo',
 }

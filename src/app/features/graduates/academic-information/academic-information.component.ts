@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@shared/directives/button';
@@ -13,6 +13,7 @@ import {
 } from '@features/graduates/academic-information/pipes';
 import { InformacaoAcademicaService } from '../academic-information/service/academic-information.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@core/auth/services/auth.service';
 
 @Component({
 	selector: 'app-academic-information',
@@ -35,6 +36,7 @@ export class AcademicInformationComponent implements OnInit {
 	//data = EDUCATION_HISTORY_MOCK;
 	data: AcademicInformation[] = [];
 	cpf!: string;
+	private _authService = inject(AuthService);
 
 	constructor(
 		private academicService: InformacaoAcademicaService,
@@ -43,7 +45,7 @@ export class AcademicInformationComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.route.params.subscribe(params => {
-			this.cpf = '123.456.789-14';
+			this.cpf = this._authService.getCpf();
 			console.log('CPF capturado da rota:', this.cpf);
 			if (this.cpf) {
 				this.carregarInformacoes();

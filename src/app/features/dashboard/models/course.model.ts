@@ -1,6 +1,6 @@
 export interface Course {
-	course: string;
-	titration: string;
+	curso: string;
 	campus: string;
-	countStudents: number;
+	titulacao: string;
+	total: number;
 }

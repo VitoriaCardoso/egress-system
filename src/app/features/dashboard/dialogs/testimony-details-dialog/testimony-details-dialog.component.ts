@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { Testimony } from '../../models/titration.model';
+import { Testimony, StudentTestimony } from '../../models/titration.model';
 
 @Component({
 	selector: 'app-testimony-details-dialog',

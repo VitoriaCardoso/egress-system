@@ -9,6 +9,8 @@ import { SelectOptions } from '@shared/models/select.model';
 import { ButtonDirective } from '@shared/directives/button';
 import { ProfessionalInfo } from '../../models/professional-information.model';
 import { ProfessionalInformationService } from '../../service/professional-information.service';
+import { SelectOption } from '../../../../../shared/models/select.model';
+
 import {
 	CATEGORY_OPTIONS_MOCK,
 	JOB_LEVEL_OPTIONS_MOCK,
@@ -51,12 +53,14 @@ export class ProfessionalInformationFormComponent implements OnInit {
 	route = inject(ActivatedRoute);
 	router = inject(Router);
 	alertService = inject(AlertService);
+	opcoes = <SelectOption[]>[];
 
 	constructor(private service: ProfessionalInformationService) {}
 
 	ngOnInit() {
 		this.id = this.route.snapshot.paramMap.get('id');
 		this.inicializarFormulario();
+		this.carregarCursosRelacionados();
 		this.carregarInformacaoProfissonal();
 		this.criarEditarFormulario();
 	}
@@ -72,6 +76,7 @@ export class ProfessionalInformationFormComponent implements OnInit {
 				this.service.listarPorId(id).subscribe({
 					next: data => {
 						if (Array.isArray(data) && data.length > 0) {
+							console.log(data);
 							const info: ProfessionalInfo = data[0];
 
 							this.form.patchValue({
@@ -85,7 +90,7 @@ export class ProfessionalInformationFormComponent implements OnInit {
 								end_date: info.end_date,
 								salary: info.salary,
 								function: info.function,
-								relatedAcademicInfo: info.relatedAcademicInfo,
+								informacao_academica: info.informacao_academica,
 							});
 						}
 					},
@@ -109,7 +114,7 @@ export class ProfessionalInformationFormComponent implements OnInit {
 			end_date: new FormControl(null),
 			salary: new FormControl(null),
 			function: new FormControl(null),
-			relatedAcademicInfo: new FormControl(null, [Validators.required]),
+			informacao_academica: new FormControl(null, [Validators.required]),
 		});
 	}
 
@@ -121,8 +126,7 @@ export class ProfessionalInformationFormComponent implements OnInit {
 
 		this.service.listarPorId(this.id).subscribe(
 			data => {
-				console.log('Dados recebidos:', data);
-
+				console.log(data);
 				this.professionalInfo = data;
 
 				this.form.patchValue({
@@ -136,7 +140,7 @@ export class ProfessionalInformationFormComponent implements OnInit {
 					end_date: this.professionalInfo.end_date || '',
 					salary: this.professionalInfo.salary,
 					function: this.professionalInfo.function,
-					relatedAcademicInfo: this.professionalInfo.relatedAcademicInfo,
+					informacao_academica: this.professionalInfo.informacao_academica,
 				});
 			},
 			error => {
@@ -145,35 +149,108 @@ export class ProfessionalInformationFormComponent implements OnInit {
 		);
 	}
 
+	carregarCursosRelacionados() {
+		//const cpf = localStorage.getItem('cpf'); // ou de onde você estiver pegando o CPF
+		const cpf = '123.456.789-14';
+
+		if (!cpf) {
+			console.error('CPF não encontrado para carregar cursos relacionados.');
+			return;
+		}
+
+		this.service.buscarPorEgressoCpf(cpf).subscribe({
+			next: dados => {
+				const vistos = new Map<string, { value: string; label: string }>();
+
+				dados.forEach(info => {
+					const id = info.informacao_academica.id;
+					const course = info.informacao_academica.course_name || 'Curso sem nome';
+					const chaveUnica = `${id}::${course}`; // chave composta
+
+					if (!vistos.has(chaveUnica)) {
+						vistos.set(chaveUnica, {
+							value: id,
+							label: course,
+						});
+					}
+				});
+
+				this.opcoes = Array.from(vistos.values());
+
+				console.log('Cursos carregados (sem duplicatas):', this.opcoes);
+			},
+			error: err => console.error('Erro ao buscar cursos:', err),
+		});
+	}
+
 	onSubmit() {
 		if (this.form.invalid) {
 			this.alertService.showAlert('warning', 'Preencha todos os campos obrigatórios.', 'Atenção.');
 			this.form.markAllAsTouched();
 			return;
 		}
+		const formValue = this.form.value;
 
-		const formData = this.form.value;
+		const formData = {
+			...formValue,
+		};
 
 		if (this.mode() === 'create') {
+			formData.start_date = this.formatDateToISO(formData.start_date);
+			formData.end_date = this.formatDateToISO(formData.end_date);
+
 			this.service.criar(formData).subscribe({
 				next: () => {
+					console.log(formData);
 					this.alertService.showAlert('success', 'Informação profissional criada com sucesso!', 'Sucesso.');
 					this.router.navigate(['/informacoes/profissionais']);
 				},
 				error: () => {
+					console.log(formData);
 					this.alertService.showAlert('danger', 'Erro ao salvar os dados.', 'Erro.');
 				},
 			});
 		} else if (this.mode() === 'edit' && this.id) {
 			this.service.atualizar(this.id, formData).subscribe({
 				next: () => {
+					console.log(formData);
 					this.alertService.showAlert('success', 'Informação profissional atualizada com sucesso!', 'Sucesso.');
 					this.router.navigate(['/informacoes/profissionais']);
 				},
 				error: () => {
+					console.log(formData);
 					this.alertService.showAlert('danger', 'Erro ao atualizar os dados.', 'Erro.');
 				},
 			});
 		}
+	}
+
+	private formatDateToISO(date: any): string | null {
+		if (!date) return null;
+
+		// Se for string no formato "15/03/2019"
+		if (typeof date === 'string' && date.includes('/')) {
+			const [day, month, year] = date.split('/');
+			return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+		}
+
+		// Se for objeto Date válido
+		if (date instanceof Date && !isNaN(date.getTime())) {
+			const year = date.getFullYear();
+			const month = String(date.getMonth() + 1).padStart(2, '0');
+			const day = String(date.getDate()).padStart(2, '0');
+			return `${year}-${month}-${day}`;
+		}
+
+		// Tentar converter strings ISO ou inválidas
+		const d = new Date(date);
+		if (!isNaN(d.getTime())) {
+			const year = d.getFullYear();
+			const month = String(d.getMonth() + 1).padStart(2, '0');
+			const day = String(d.getDate()).padStart(2, '0');
+			return `${year}-${month}-${day}`;
+		}
+
+		return null;
 	}
 }

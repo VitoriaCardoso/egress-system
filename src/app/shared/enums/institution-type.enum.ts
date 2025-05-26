@@ -1,6 +1,6 @@
 export enum institution_typeEnum {
-	PUBLIC_INSTITUTION = 'public-institution',
-	PRIVATE_INSTITUTION = 'private-institution',
-	FOREIGN_INSTITUTION = 'foreign-institution',
-	OTHER = 'other',
+	PUBLIC_INSTITUTION = 'Instituição Pública',
+	PRIVATE_INSTITUTION = 'Instituição Privada',
+	FOREIGN_INSTITUTION = 'Instituição Estrangeira',
+	OTHER = 'Outro',
 }

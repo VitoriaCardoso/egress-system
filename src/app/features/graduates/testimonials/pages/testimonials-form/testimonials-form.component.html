@@ -2,22 +2,22 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-edit">
 	<div class="row">
 		<div class="col-12 col-lg-7">
-			<app-textarea id="testimonial" label="Texto do Depoimento" formControlName="text">
-				@if (form.controls.text | hasError) {
+			<app-textarea id="testimonial" label="Texto do Depoimento" formControlName="texto_depoimento">
+				@if (form.controls.texto_depoimento | hasError) {
 					<span br-feedback state="danger">Campo obrigatório</span>
 				}
 			</app-textarea>
 		</div>
 		<div class="col-12 col-lg-5">
 			<div class="d-flex flex-column gap-2">
-				@if (informacaoAcademicaOpcoes.length > 1) {
+				@if (opcoes.length > 1) {
 					<app-select
-						[options]="informacaoAcademicaOpcoes"
-						id="relatedAcademicInfo"
+						[options]="opcoes"
+						id="course_name"
 						label="Curso Relacionado"
-						formControlName="relatedAcademicInfo"
+						formControlName="informacaoAcademica"
 					>
-						@if (form.controls.relatedAcademicInfo | hasError) {
+						@if (form.controls.informacaoAcademica | hasError) {
 							<span br-feedback state="danger">Campo obrigatório</span>
 						}
 					</app-select>
@@ -25,10 +25,10 @@
 				<app-radio
 					horizontal
 					[options]="privacyOptions"
-					formControlName="privacy"
+					formControlName="privacidade"
 					label="Privacidade do Depoimento"
 				></app-radio>
-				@if (form.controls.privacy | hasError) {
+				@if (form.controls.privacidade | hasError) {
 					<span br-feedback noPropagateState state="danger">Campo obrigatório</span>
 				}
 			</div>
@@ -36,9 +36,8 @@
 
 		<div class="col-12 d-flex justify-content-lg-end justify-content-center gap-3 mt-4">
 			@if (mode() === 'edit') {
-				<button br-button color="secondary">Excluir Depoimento</button>
+				<button br-button color="secondary" type="button" (click)="deleteTestimonial()">Excluir Depoimento</button>
 			}
-			<button br-button color="primary">Salvar</button>
 		</div>
 	</div>
 </form>

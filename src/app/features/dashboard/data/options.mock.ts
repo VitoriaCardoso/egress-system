@@ -2,59 +2,59 @@ import { SelectOptions } from '@shared/models/select.model';
 
 export const ACADEMIC_SEMESTER_OPTIONS_MOCK: SelectOptions = [
 	{
-		value: '20242',
-		label: '2024/2',
+		value: '2° Semestre/2024',
+		label: '2° Semestre/2024',
 	},
 	{
-		value: '20241',
-		label: '2024/1',
+		value: '1° Semestre/2024',
+		label: '1° Semestre/2024',
 	},
 	{
-		value: '20232',
-		label: '2023/2',
+		value: '2° Semestre/2023',
+		label: '2° Semestre/2023',
 	},
 	{
-		value: '20231',
-		label: '2023/1',
+		value: '1° Semestre/2023',
+		label: '1° Semestre/2023',
 	},
 	{
-		value: '20222',
-		label: '2022/2',
+		value: '2° Semestre/2022',
+		label: '2° Semestre/2022',
 	},
 	{
-		value: '20221',
-		label: '2022/1',
+		value: '1° Semestre/2022',
+		label: '1° Semestre/2022',
 	},
 	{
-		value: '20212',
-		label: '2021/2',
+		value: '2° Semestre/2021',
+		label: '2° Semestre/2021',
 	},
 	{
-		value: '20211',
-		label: '2021/1',
+		value: '1° Semestre/2021',
+		label: '1° Semestre/2021',
 	},
 	{
-		value: '20202',
-		label: '2020/2',
+		value: '2° Semestre/2020',
+		label: '2° Semestre/2020',
 	},
 	{
-		value: '20201',
-		label: '2020/1',
+		value: '1° Semestre/2020',
+		label: '1° Semestre/2020',
 	},
 	{
-		value: '20192',
-		label: '2019/2',
+		value: '2° Semestre/2019',
+		label: '2° Semestre/2019',
 	},
 	{
-		value: '20191',
-		label: '2019/1',
+		value: '1° Semestre/2019',
+		label: '1° Semestre/2019',
 	},
 	{
-		value: '20182',
-		label: '2018/2',
+		value: '2° Semestre/2018',
+		label: '2° Semestre/2018',
 	},
 	{
-		value: '20181',
-		label: '2018/1',
+		value: '1° Semestre/2018',
+		label: '1° Semestre/2018',
 	},
 ];

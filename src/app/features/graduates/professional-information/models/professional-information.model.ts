@@ -1,3 +1,5 @@
+import { AcademicInformation } from '../../academic-information/models/academic-information.model';
+
 export interface ProfessionalInfo {
 	id: number;
 	company_name: string;
@@ -10,31 +12,31 @@ export interface ProfessionalInfo {
 	end_date?: Date;
 	salary?: number;
 	function?: string;
-	relatedAcademicInfo: string;
+	informacao_academica: AcademicInformation;
 }
 
 export enum CategoryEnum {
-	PRIVATE = 'private',
-	PUBLIC = 'public',
-	NGO = 'ngo',
+	PRIVATE = 'Privada',
+	PUBLIC = 'Público',
+	NGO = 'NGO',
 }
 
 export enum job_typeEnum {
-	FULL_TIME = 'full_time',
-	PART_TIME = 'part_time',
-	CONTRACT = 'contract',
-	FREELANCER = 'freelancer',
+	FULL_TIME = 'Tempo Integral',
+	PART_TIME = 'Meio Período',
+	CONTRACT = 'Contratado',
+	FREELANCER = 'FreeLancer',
 }
 
 export enum job_levelEnum {
-	JUNIOR = 'junior',
-	MID_LEVEL = 'mid_level',
-	SENIOR = 'senior',
-	SPECIALIST = 'specialist',
+	JUNIOR = 'Júnior',
+	MID_LEVEL = 'Nível Médio',
+	SENIOR = 'Sênior',
+	SPECIALIST = 'Especialista',
 }
 
 export enum LocationEnum {
-	IN_PERSON = 'in-person',
-	REMOTE = 'remote',
-	HYBRID = 'hybrid',
+	IN_PERSON = 'Pessoalmente',
+	REMOTE = 'Remoto',
+	HYBRID = 'Híbrido',
 }

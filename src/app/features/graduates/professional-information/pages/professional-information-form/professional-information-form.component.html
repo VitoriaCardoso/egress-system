@@ -77,14 +77,14 @@
 			</app-date-time-picker>
 		</div>
 		<div class="col-12 col-lg-3">
-			@if (informacaoAcademicaOpcoes.length > 1) {
+			@if (opcoes.length > 1) {
 				<app-select
-					[options]="informacaoAcademicaOpcoes"
-					id="relatedAcademicInfo"
+					[options]="opcoes"
+					id="course_name"
 					label="Curso Relacionado"
-					formControlName="relatedAcademicInfo"
+					formControlName="informacao_academica"
 				>
-					@if (form.get('relatedAcademicInfo') | hasError) {
+					@if (form.get('informacao_academica') | hasError) {
 						<span br-feedback state="danger">Campo obrigatório</span>
 					}
 				</app-select>

@@ -1,12 +1,10 @@
 <h1>Dashboard de Dados Públicos</h1>
-<app-dashboard-filter></app-dashboard-filter>
-<app-table [data]="dataPaginated" [columns]="columns"></app-table>
+<app-dashboard-filter (filteredCourses)="onFilteredCourses($event)"></app-dashboard-filter>
+<app-table [columns]="columns" [data]="dataPaginated"></app-table>
 <app-paginator
-	(page)="onPageChange($event)"
-	[pageIndex]="coursesPagination.page"
-	[pageSizeOptions]="[5, 10, 20]"
-	[pageSize]="coursesPagination.pageSize"
 	[length]="coursesPagination.length"
+	[pageSize]="coursesPagination.pageSize"
+	(page)="onPageChange($event)"
 ></app-paginator>
 <div class="row my-6 d-flex">
 	@defer {

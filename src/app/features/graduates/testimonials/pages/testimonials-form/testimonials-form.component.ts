@@ -14,8 +14,17 @@ import { RadioComponent } from '@shared/components/radio/radio.component';
 import { FeedbackDirective } from '@shared/directives/feedback';
 import { HasErrorPipe } from '@shared/pipes';
 import { Dialog } from '@angular/cdk/dialog';
+import { TestimonialsService } from '../../service/testimonials.service';
+import { SelectOption } from '../../../../../shared/models/select.model';
+import { PublicationsService } from '../../../publications/service/publications.service';
+import { InformacaoAcademicaService } from '../../../academic-information/service/academic-information.service';
 import { ConsentDialogComponent } from '@app/features/graduates/testimonials/dialogs/consent-dialog/consent-dialog.component';
 
+const privacyMap = {
+	public: 'Público',
+	private: 'Privado',
+	anonymous: 'Anônimo',
+};
 @Component({
 	selector: 'app-testimonials-form',
 	standalone: true,
@@ -35,9 +44,9 @@ import { ConsentDialogComponent } from '@app/features/graduates/testimonials/dia
 })
 export class TestimonialsFormComponent {
 	form = new FormGroup({
-		text: new FormControl('', Validators.required),
-		relatedAcademicInfo: new FormControl('', Validators.required),
-		privacy: new FormControl('', Validators.required),
+		texto_depoimento: new FormControl('', Validators.required),
+		informacaoAcademica: new FormControl('', Validators.required),
+		privacidade: new FormControl('', Validators.required),
 	});
 
 	mode = signal<'create' | 'edit'>('create');
@@ -49,8 +58,14 @@ export class TestimonialsFormComponent {
 	informacaoAcademicaOpcoes: SelectOptions = RELATED_ACADEMIC_INFO_OPTIONS;
 	privacyOptions = PRIVACY_OPTIONS;
 	dialog = inject(Dialog);
+	opcoes = <SelectOption[]>[];
+	private _publicationsService = inject(PublicationsService);
+	private _informacaoAcademicaService = inject(InformacaoAcademicaService);
+	private _testemonialService = inject(TestimonialsService);
 
 	constructor() {
+		const id = this.route.snapshot.paramMap.get('id');
+
 		this.route.paramMap.subscribe(params => {
 			const id = params.get('id');
 
@@ -58,14 +73,41 @@ export class TestimonialsFormComponent {
 			this.id = id;
 
 			if (id) {
-				const data = TESTIMONIALS_MOCK.find(item => item.id.toString() === id);
-				if (data) {
-					this.form.patchValue({
-						...data,
-					});
-				}
+				this.mode.set('edit');
+				this._testemonialService.buscarPorId(id).subscribe({
+					next: pub => {
+						this.form.patchValue({
+							...pub,
+							informacaoAcademica: pub.informacaoAcademica?.id,
+						});
+					},
+					error: err => console.error('Erro ao carregar publicação:', err),
+				});
 			}
 		});
+
+		const cpf = '123.456.789-14';
+
+		this._informacaoAcademicaService.buscarCursoPorCpf(cpf).subscribe({
+			next: dados => {
+				this.opcoes = dados;
+				console.log(dados);
+			},
+			error: err => console.error('Erro ao buscar cursos:', err),
+		});
+
+		if (id) {
+			this.mode.set('edit');
+			this._publicationsService.buscarPorId(id).subscribe({
+				next: pub => {
+					this.form.patchValue({
+						...pub,
+						informacaoAcademica: pub.informacao_academica?.id,
+					});
+				},
+				error: err => console.error('Erro ao carregar publicação:', err),
+			});
+		}
 	}
 
 	onSubmit() {
@@ -75,28 +117,82 @@ export class TestimonialsFormComponent {
 			return;
 		}
 
+		const formValue = this.form.value;
+
+		const testimonialsDTO = {
+			texto_depoimento: formValue.texto_depoimento,
+			privacidade: privacyMap[formValue.privacidade],
+			id_informacao_academica: formValue.informacaoAcademica,
+		};
+
 		if (this.mode() === 'create') {
-			this.createTestimonial();
+			this.createTestimonial(testimonialsDTO);
 		} else {
 			this.editTestimonial();
 		}
 	}
 
-	private createTestimonial() {
-		const dialog = this.dialog.open(ConsentDialogComponent, { maxWidth: '500px', panelClass: 'consent' });
+	private createTestimonial(dto: any) {
+		const dialogRef = this.dialog.open(ConsentDialogComponent, {
+			maxWidth: '500px',
+			panelClass: 'consent',
+		});
 
-		dialog.closed.subscribe(async (confirmed: boolean) => {
+		dialogRef.closed.subscribe((confirmed: boolean) => {
 			if (confirmed) {
-				this.router.navigate(['/depoimentos']).then(() => {
-					this.alertService.showAlert('success', 'Depoimento salvo com sucesso');
+				this._testemonialService.criar(dto).subscribe({
+					next: () => {
+						this.router.navigate(['/depoimentos']).then(() => {
+							this.alertService.showAlert('success', 'Depoimento salvo com sucesso');
+						});
+					},
+					error: () => {
+						console.log(dto);
+						this.alertService.showAlert('danger', 'Erro ao salvar depoimento');
+					},
 				});
 			}
 		});
 	}
 
 	private editTestimonial() {
-		this.router.navigate(['/depoimentos']).then(() => {
-			this.alertService.showAlert('success', 'Depoimento editado com sucesso');
+		const formValue = this.form.value;
+
+		const dto = {
+			texto_depoimento: formValue.texto_depoimento,
+			privacidade: privacyMap[formValue.privacidade],
+			id_informacao_academica: formValue.informacaoAcademica,
+		};
+
+		this._testemonialService.atualizar(this.id, dto).subscribe({
+			next: () => {
+				this.router.navigate(['/depoimentos']).then(() => {
+					this.alertService.showAlert('success', 'Depoimento editado com sucesso');
+				});
+			},
+			error: () => {
+				this.alertService.showAlert('danger', 'Erro ao editar depoimento');
+			},
+		});
+	}
+
+	deleteTestimonial() {
+		if (!this.id) return;
+
+		// Confirmação opcional
+		const confirmDelete = confirm('Tem certeza que deseja excluir este depoimento?');
+
+		if (!confirmDelete) return;
+
+		this._testemonialService.excluir(this.id).subscribe({
+			next: () => {
+				this.router.navigate(['/depoimentos']).then(() => {
+					this.alertService.showAlert('success', 'Depoimento excluído com sucesso');
+				});
+			},
+			error: () => {
+				this.alertService.showAlert('danger', 'Erro ao excluir depoimento');
+			},
 		});
 	}
 }

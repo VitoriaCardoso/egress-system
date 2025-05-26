@@ -28,7 +28,7 @@ export class ProfessionalInformationService {
 	}
 
 	atualizar(id: string, dto: ProfessionalInfo): Observable<ProfessionalInfo> {
-		return this.http.put<ProfessionalInfo>(`${this.apiUrl}${id}`, dto);
+		return this.http.put<ProfessionalInfo>(`${this.apiUrl}/${id}`, dto);
 	}
 
 	excluir(id: string): Observable<void> {

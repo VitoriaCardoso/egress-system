@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, input, InputSignal } from '@angular/core';
 import { CardChartComponent } from '../card-chart/card-chart.component';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
+import { DashboardService } from '../../service/dashboard.service';
 
 @Component({
 	selector: 'app-total-per-campus-chart',
@@ -11,12 +12,15 @@ import { ChartConfiguration } from 'chart.js';
 	styleUrl: './total-per-campus-chart.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TotalPerCampusChartComponent {
-	barChartData: InputSignal<ChartConfiguration<'bar'>['data']> = input({
-		labels: ['Campus Patos de Minas', 'Campus Pontal'],
-		datasets: [{ data: [11760, 1124], label: 'Total por Campus' }],
+export class TotalPerCampusChartComponent implements OnInit {
+	private dashboardService = inject(DashboardService);
+
+	barChartData = signal<ChartConfiguration<'bar'>['data']>({
+		labels: [],
+		datasets: [{ data: [], label: 'Total por Campus' }],
 	});
 
+	// Configurações do gráfico
 	public barChartOptions: ChartConfiguration<'bar'>['options'] = {
 		responsive: true,
 		maintainAspectRatio: false,
@@ -46,5 +50,17 @@ export class TotalPerCampusChartComponent {
 		backgroundColor: '#003366',
 	};
 
-	constructor() {}
+	ngOnInit(): void {
+		this.dashboardService.getCampusEstudantes().subscribe(data => {
+			console.log('Dados de campus:', data);
+
+			const labels = data.map(option => option.label);
+			const values = data.map(option => Number(option.value));
+
+			this.barChartData.set({
+				labels,
+				datasets: [{ data: values, label: 'Total por Campus' }],
+			});
+		});
+	}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ItemInfoComponent } from '@shared/components/item-info/item-info.component';
 import { CollapseItemComponent } from '@shared/components/collapse-item/collapse-item.component';
 import { PUBLICATION_MOCK } from '@app/features/graduates/publications/mocks/publications.mock';
@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@shared/directives/button';
 import { PublicationsService } from '../publications/service/publications.service';
 import { Publication } from '../publications/models/publications.model';
+import { AuthService } from '@core/auth/services/auth.service';
 
 @Component({
 	selector: 'app-publications',
@@ -18,11 +19,12 @@ export class PublicationsComponent implements OnInit {
 	//data = PUBLICATION_MOCK;  //Para utilizar o mock
 	data: Publication[] = [];
 	cpf: string = '';
+	private _authService = inject(AuthService);
 
 	constructor(private publicationsService: PublicationsService) {}
 
 	ngOnInit(): void {
-		this.cpf = '123.456.789-14';
+		this.cpf = this._authService.getCpf();
 		this.buscarPublicacoes();
 	}
 

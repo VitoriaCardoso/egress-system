@@ -23,4 +23,9 @@ export const CAMPUS_OPTIONS_MOCK: SelectOptions = [
 		value: CampusEnum.UMUARAMA,
 		label: 'Campus Umuarama',
 	},
+	{
+		//value: CampusEnum.GLORIA,
+		value: 'Glória',
+		label: 'Campus Glória',
+	},
 ];

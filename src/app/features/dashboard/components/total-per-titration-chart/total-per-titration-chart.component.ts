@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, signal, OnInit, inject } from '@angular/core';
 import { CardChartComponent } from '../card-chart/card-chart.component';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { DashboardService } from '../../service/dashboard.service';
+import { SelectOption } from '../../../../shared/models/select.model';
 
 @Component({
 	selector: 'app-total-per-titration-chart',
@@ -11,10 +13,13 @@ import { BaseChartDirective } from 'ng2-charts';
 	styleUrl: './total-per-titration-chart.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TotalPerTitrationChartComponent {
-	barChartData: InputSignal<ChartConfiguration<'bar'>['data']> = input({
-		labels: ['Bacharelado', 'Licenciatura Plena', 'Área Básica de Ingresso'],
-		datasets: [{ data: [8919, 1969, 941], label: 'Total por Título Acadêmico' }],
+export class TotalPerTitrationChartComponent implements OnInit {
+	private dashboardService = inject(DashboardService);
+
+	// ✅ Usando signal
+	barChartData = signal<ChartConfiguration<'bar'>['data']>({
+		labels: [],
+		datasets: [{ data: [], label: 'Total por Título Acadêmico' }],
 	});
 
 	public barChartOptions: ChartConfiguration<'bar'>['options'] = {
@@ -46,5 +51,17 @@ export class TotalPerTitrationChartComponent {
 		backgroundColor: '#003366',
 	};
 
-	constructor() {}
+	ngOnInit(): void {
+		this.dashboardService.getNivelEstudantes().subscribe(data => {
+			console.log('Dados de nível acadêmico:', data);
+
+			const labels = data.map(option => option.label);
+			const values = data.map(option => Number(option.value));
+
+			this.barChartData.set({
+				labels,
+				datasets: [{ data: values, label: 'Total por Título Acadêmico' }],
+			});
+		});
+	}
 }

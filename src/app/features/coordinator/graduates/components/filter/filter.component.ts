@@ -14,7 +14,7 @@ export interface FilterGraduatesModel {
 	cpf: string;
 	campus: string;
 	course_nameOrCode: string;
-	titration: string;
+	titulacao: string;
 	admissionDate: string;
 	completionDate: string;
 }
@@ -46,7 +46,7 @@ export class FilterComponent {
 		cpf: new FormControl(''),
 		campus: new FormControl(''),
 		course_nameOrCode: new FormControl(''),
-		titration: new FormControl(''),
+		titulacao: new FormControl(''),
 		admissionDate: new FormControl(''),
 		completionDate: new FormControl(''),
 	});

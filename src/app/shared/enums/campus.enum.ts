@@ -4,4 +4,5 @@ export enum CampusEnum {
 	PONTAL = 3,
 	SANTA_MONICA = 4,
 	UMUARAMA = 5,
+	GLORIA = 6,
 }

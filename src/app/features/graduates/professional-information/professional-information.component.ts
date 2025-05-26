@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CollapseItemComponent } from '@shared/components/collapse-item/collapse-item.component';
 import { ItemInfoComponent } from '@shared/components/item-info/item-info.component';
 import { PROFESSIONAL_INFO_MOCK } from './mocks/professional-information.mock';
@@ -7,6 +7,8 @@ import { RouterLink } from '@angular/router';
 import { ButtonDirective } from '@shared/directives/button';
 import { TitleCollapseProfessionalInformationPipe } from '@shared/pipes';
 import { ProfessionalInfo } from './models/professional-information.model';
+import { ProfessionalInformationService } from '../professional-information/service/professional-information.service';
+import { AuthService } from '@core/auth/services/auth.service';
 
 import {
 	GetCategoryDescriptionPipe,
@@ -35,14 +37,27 @@ import {
 	styleUrl: './professional-information.component.scss',
 })
 export class ProfessionalInformationComponent implements OnInit {
-	data = PROFESSIONAL_INFO_MOCK;
-	professionalInfo: ProfessionalInfo;
+	//data = PROFESSIONAL_INFO_MOCK; //Para utilizar o mock
+	data: ProfessionalInfo[] = [];
+	cpf: string = '';
+	private _authService = inject(AuthService);
 
-	constructor() {
-		//this.professionalInfo = new ProfessionalInfo();
-	}
+	constructor(private professionalAcademic: ProfessionalInformationService) {}
 
 	ngOnInit(): void {
-		this.professionalInfo;
+		this.cpf = this._authService.getCpf();
+		this.buscarPublicacoes();
+	}
+
+	buscarPublicacoes(): void {
+		this.professionalAcademic.buscarPorEgressoCpf(this.cpf).subscribe({
+			next: res => {
+				console.log(res);
+				this.data = res;
+			},
+			error: err => {
+				console.error('Erro ao buscar publicações:', err);
+			},
+		});
 	}
 }

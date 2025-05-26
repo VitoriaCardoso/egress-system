@@ -2,8 +2,8 @@
 <app-table [data]="dataPaginated" [columns]="columns"></app-table>
 <app-paginator
 	(page)="onPageChange($event)"
-	[pageIndex]="testimonialsPagination.page"
+	[pageIndex]="currentPage"
 	[pageSizeOptions]="[5, 10, 20]"
-	[pageSize]="testimonialsPagination.pageSize"
-	[length]="testimonialsPagination.length"
+	[pageSize]="pageSize"
+	[length]="allTestimonials.length"
 ></app-paginator>

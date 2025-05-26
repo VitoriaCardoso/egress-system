@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { AlertComponent } from '@shared/components/alert/alert.component';
 import { MenuComponent } from '@shared/components/menu/menu.component';
@@ -13,8 +14,16 @@ import { StudentsChartComponent } from './components/students-chart/students-cha
 import { TotalPerCampusChartComponent } from './components/total-per-campus-chart/total-per-campus-chart.component';
 import { TotalPerTitrationChartComponent } from './components/total-per-titration-chart/total-per-titration-chart.component';
 import { TestimonialsListComponent } from './components/testimonials-list/testimonials-list.component';
+
 import { coursesPaginationMock } from './data/table-course.mock';
 import { Course } from './models/course.model';
+import { DashboardService } from './service/dashboard.service';
+interface CoursesPagination {
+	data: Course[];
+	length: number;
+	pageSize: number;
+	pageIndex: number; // sempre zero-based
+}
 
 @Component({
 	selector: 'app-dashboard',
@@ -38,38 +47,74 @@ import { Course } from './models/course.model';
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
-	columns: Array<Columns> = [
-		{
-			columnDef: 'course',
-			header: 'Curso',
-			cell: (element: Course) => `${element.course}`,
-		},
-		{
-			columnDef: 'titration',
-			header: 'Titulação',
-			cell: (element: Course) => `${element.titration}`,
-		},
-		{
-			columnDef: 'campus',
-			header: 'Campus',
-			cell: (element: Course) => `${element.campus}`,
-		},
-		{
-			columnDef: 'countStudents',
-			header: 'Estudantes',
-			cell: (element: Course) => `${element.countStudents}`,
-		},
+export class DashboardComponent implements OnInit {
+	columns: Columns[] = [
+		{ columnDef: 'curso', header: 'Curso', cell: (c: Course) => `${c.curso}` },
+		{ columnDef: 'titulacao', header: 'Titulação', cell: (c: Course) => `${c.titulacao}` },
+		{ columnDef: 'campus', header: 'Campus', cell: (c: Course) => `${c.campus}` },
+		{ columnDef: 'total', header: 'Estudantes', cell: (c: Course) => `${c.total}` },
 	];
-	coursesPagination = coursesPaginationMock;
-	dataPaginated = coursesPaginationMock.data.slice(0, coursesPaginationMock.pageSize);
+
+	dataPaginated: Course[] = [];
+
+	coursesPagination: CoursesPagination = {
+		...coursesPaginationMock,
+		pageIndex: 0,
+	};
+
+	private originalData: Course[] = [];
+
 	protected readonly Array = Array;
 
-	constructor() {}
+	constructor(private dashboardService: DashboardService) {}
 
-	onPageChange(pageEvent: PageEvent) {
-		const start = (pageEvent.pageIndex - 1) * pageEvent.pageSize;
-		const end = start + pageEvent.pageSize;
-		this.dataPaginated = this.coursesPagination.data.slice(start, end);
+	ngOnInit(): void {
+		this.dashboardService.getCursoCampusTitulacao(undefined, undefined, undefined, undefined).subscribe({
+			next: data => {
+				this.originalData = data;
+
+				this.coursesPagination = {
+					data,
+					length: data.length,
+					pageSize: 10,
+					pageIndex: 0,
+				};
+
+				this.updatePaginatedData();
+			},
+			error: err => console.error(err),
+		});
+	}
+
+	onFilteredCourses(filtered: Course[]) {
+		const source = filtered?.length ? filtered : this.originalData;
+
+		this.coursesPagination = {
+			...this.coursesPagination,
+			data: source,
+			length: source.length,
+			pageIndex: 0,
+		};
+
+		console.log('Página atualizada', this.coursesPagination);
+
+		this.updatePaginatedData();
+	}
+
+	onPageChange(event: PageEvent): void {
+		this.coursesPagination = {
+			...this.coursesPagination,
+			pageSize: event.pageSize,
+			pageIndex: event.pageIndex,
+		};
+
+		this.updatePaginatedData();
+	}
+
+	private updatePaginatedData(): void {
+		const { pageIndex, pageSize, data } = this.coursesPagination;
+		const start = pageIndex * pageSize;
+		const end = start + pageSize;
+		this.dataPaginated = data.slice(start, end);
 	}
 }

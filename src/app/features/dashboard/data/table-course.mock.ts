@@ -2,26 +2,26 @@ import { Course } from '../models/course.model';
 import { Pagination } from '@shared/models/pagination.model';
 
 export const coursesMock: Course[] = [
-	{ course: 'Agronomia', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 1026 },
+	{ curso: 'Agronomia', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 1026 },
 	{
-		course: 'ABI Engenharia',
-		titration: 'Área Básica de Ingresso',
+		curso: 'ABI Engenharia',
+		titulacao: 'Área Básica de Ingresso',
 		campus: 'Campus Patos de Minas',
-		countStudents: 699,
+		total: 699,
 	},
-	{ course: 'Direito', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 570 },
-	{ course: 'Medicina Veterinária', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 523 },
+	{ curso: 'Direito', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 570 },
+	{ curso: 'Medicina Veterinária', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 523 },
 	{
-		course: 'Engenharia de Controle e Automação',
-		titration: 'Bacharelado',
+		curso: 'Engenharia de Controle e Automação',
+		titulacao: 'Bacharelado',
 		campus: 'Campus Patos de Minas',
-		countStudents: 501,
+		total: 501,
 	},
-	{ course: 'Ciência da Computação', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 488 },
-	{ course: 'Engenharia Mecânica', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 470 },
-	{ course: 'Engenharia Civil', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 450 },
-	{ course: 'Engenharia Elétrica', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 430 },
-	{ course: 'Biologia', titration: 'Bacharelado', campus: 'Campus Patos de Minas', countStudents: 400 },
+	{ curso: 'Ciência da Computação', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 488 },
+	{ curso: 'Engenharia Mecânica', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 470 },
+	{ curso: 'Engenharia Civil', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 450 },
+	{ curso: 'Engenharia Elétrica', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 430 },
+	{ curso: 'Biologia', titulacao: 'Bacharelado', campus: 'Campus Patos de Minas', total: 400 },
 ];
 
 export const coursesPaginationMock: Pagination<Course> = {

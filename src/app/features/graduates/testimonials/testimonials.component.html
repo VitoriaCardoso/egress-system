@@ -4,8 +4,8 @@
 
 <h1>Depoimentos</h1>
 
-@for (testimonial of data; track testimonial.id; let first = $first) {
-	<app-collapse-item [label]="'Depoimento ' + testimonial.id" [id]="testimonial.id.toString()" [expanded]="first">
+@for (testimonial of data; track testimonial.id; let i = $index; let first = $first) {
+	<app-collapse-item [label]="'Depoimento ' + (i + 1)" [id]="testimonial.id.toString()" [expanded]="first">
 		<div class="btn-edit">
 			<button
 				size="small"
@@ -19,15 +19,15 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<app-item-info label="Texto do Depoimento" [value]="testimonial.text"></app-item-info>
+				<app-item-info label="Texto do Depoimento" [value]="testimonial.texto_depoimento"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
-				<app-item-info label="Curso" [value]="testimonial.relatedAcademicInfo"></app-item-info>
+				<app-item-info label="Curso" [value]="testimonial.informacaoAcademica.course_name"></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
 				<app-item-info
 					label="Privacidade do Depoimento"
-					[value]="testimonial.privacy | getPrivacyDescription"
+					[value]="testimonial.privacidade | getPrivacyDescription"
 				></app-item-info>
 			</div>
 			<div class="col-12 col-lg-3">
@@ -36,7 +36,7 @@
 			<div class="col-12 col-lg-3">
 				<app-item-info
 					label="Data do Cadastro do Depoimento"
-					[value]="testimonial.registrationDate | date: 'dd/MM/y'"
+					[value]="testimonial.data_cadastro | date: 'dd/MM/y'"
 				></app-item-info>
 			</div>
 		</div>

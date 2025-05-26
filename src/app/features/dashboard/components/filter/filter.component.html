@@ -1,24 +1,24 @@
 <app-collapse-item expanded id="filter" label="Filtros">
 	<form [formGroup]="formGroupFilter" class="filter-section row mx-0" (ngSubmit)="submit()">
 		<app-select
-			[options]="academicSemesterOptions"
-			formControlName="academicSemester"
+			[options]="semestreOptions"
+			formControlName="semestre"
 			class="col-md-3 col-12"
-			id="academic-semester"
+			id="semestre"
 			label="Semestre letivo"
 		></app-select>
 		<app-multi-select
 			[options]="courseOptions"
-			formControlName="course"
+			formControlName="curso"
 			class="col-md-3 col-12"
-			id="course"
+			id="curso"
 			label="Curso"
 		></app-multi-select>
 		<app-multi-select
 			[options]="course_levelOptions"
-			formControlName="titration"
+			formControlName="titulacao"
 			class="col-md-3 col-12"
-			id="titration"
+			id="titulacao"
 			label="Titulação"
 		></app-multi-select>
 		<app-multi-select

@@ -6,6 +6,9 @@ import {
 	ProfessionalInfo,
 } from '../models/professional-information.model';
 
+import { institution_typeEnum } from '@shared/enums/institution-type.enum';
+import { course_levelEnum } from '@shared/enums/course-level.enum';
+
 export const PROFESSIONAL_INFO_MOCK: ProfessionalInfo[] = [
 	{
 		id: 3,
@@ -18,7 +21,19 @@ export const PROFESSIONAL_INFO_MOCK: ProfessionalInfo[] = [
 		start_date: new Date('2021-02-01'),
 		salary: 4000,
 		function: 'Desenvolvimento de software',
-		relatedAcademicInfo: 'Bacharelado em Engenharia de Computação',
+		informacao_academica: {
+			id: '6eb57513-6b95-48b8-8b55-0e4711952c22',
+			institution_name: 'Universidade Estadual de Campinas',
+			institution_type: institution_typeEnum.PUBLIC_INSTITUTION,
+			course_name: 'Engenharia de Computação',
+			course_level: course_levelEnum.BACHELOR,
+			country: 'Brasil',
+			start_date: new Date(2020, 1, 1).toISOString(),
+			end_date: new Date(2024, 1, 1).toISOString(),
+			state: 'São Paulo',
+			city: 'Campinas',
+			document: 'São Paulo',
+		},
 	},
 	{
 		id: 2,
@@ -32,7 +47,19 @@ export const PROFESSIONAL_INFO_MOCK: ProfessionalInfo[] = [
 		end_date: new Date('2020-06-20'),
 		salary: 3000,
 		function: 'Desenvolvimento de software',
-		relatedAcademicInfo: 'Bacharelado em Engenharia de Computação',
+		informacao_academica: {
+			id: '6eb57513-6b95-48b8-8b55-0e4711952c22',
+			institution_name: 'Universidade Estadual de Campinas',
+			institution_type: institution_typeEnum.PUBLIC_INSTITUTION,
+			course_name: 'Engenharia de Computação',
+			course_level: course_levelEnum.BACHELOR,
+			country: 'Brasil',
+			start_date: new Date(2020, 1, 1).toISOString(),
+			end_date: new Date(2024, 1, 1).toISOString(),
+			state: 'São Paulo',
+			city: 'Campinas',
+			document: 'São Paulo',
+		},
 	},
 	{
 		id: 1,
@@ -46,14 +73,26 @@ export const PROFESSIONAL_INFO_MOCK: ProfessionalInfo[] = [
 		end_date: new Date('2019-10-10'),
 		salary: 2000,
 		function: 'Analisar e desenvolver sistemas',
-		relatedAcademicInfo: 'Bacharelado em Sistemas de Informação',
+		informacao_academica: {
+			id: '6eb57513-6b95-48b8-8b55-0e4711952c22',
+			institution_name: 'Universidade Estadual de Campinas',
+			institution_type: institution_typeEnum.PUBLIC_INSTITUTION,
+			course_name: 'Engenharia de Computação',
+			course_level: course_levelEnum.BACHELOR,
+			country: 'Brasil',
+			start_date: new Date(2020, 1, 1).toISOString(),
+			end_date: new Date(2024, 1, 1).toISOString(),
+			state: 'São Paulo',
+			city: 'Campinas',
+			document: 'São Paulo',
+		},
 	},
 ];
 
 export const CATEGORY_OPTIONS_MOCK = [
 	{ label: 'Privada', value: CategoryEnum.PRIVATE },
 	{ label: 'Pública', value: CategoryEnum.PUBLIC },
-	{ label: 'ONG', value: CategoryEnum.NGO },
+	{ label: 'NGO', value: CategoryEnum.NGO },
 ];
 
 export const JOB_TYPE_OPTIONS_MOCK = [

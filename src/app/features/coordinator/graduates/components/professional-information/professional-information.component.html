@@ -52,7 +52,10 @@
 			<app-item-info label="Função" [value]="info?.function || '--'"></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
-			<app-item-info label="Informações Acadêmicas Relacionadas" [value]="info?.relatedAcademicInfo"></app-item-info>
+			<app-item-info
+				label="Informações Acadêmicas Relacionadas"
+				[value]="info?.informacao_academica.id"
+			></app-item-info>
 		</div>
 		<div class="col-12 col-lg-3">
 			<app-item-info label="Identificador" [value]="info?.id.toString()"></app-item-info>

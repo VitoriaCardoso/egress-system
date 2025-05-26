@@ -1,14 +1,14 @@
 export interface StudentTestimony {
-	name: string;
-	course: string;
+	nome: string;
+	courseName: string;
 	campus: string;
-	titration: string;
-	testimony: Testimony;
+	courseLevel: string;
+	textoDepoimento: Testimony;
 }
 
 export interface Testimony {
 	title: string;
-	text: string;
+	textoDepoimento: string;
 }
 
 export interface StudentPagination {

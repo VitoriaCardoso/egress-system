@@ -11,9 +11,7 @@ import { AlertService } from '@shared/components/alert/alert.service';
 import { ButtonDirective } from '@shared/directives/button';
 import { FeedbackDirective } from '@shared/directives/feedback';
 import { PublicationsService } from '../../service/publications.service';
-import { AcademicInformation } from '../../../academic-information/models/academic-information.model';
 import { InformacaoAcademicaService } from '../../../academic-information/service/academic-information.service';
-import { Publication } from '../../models/publications.model';
 import { CommonModule } from '@angular/common';
 import { SelectOption } from '../../../../../shared/models/select.model';
 
@@ -73,7 +71,7 @@ export class PublicationsFormComponent {
 				next: pub => {
 					this.form.patchValue({
 						...pub,
-						informacao_academica: pub.informacao_academica?.id, // o select espera só o id
+						informacao_academica: pub.informacao_academica?.id,
 					});
 				},
 				error: err => console.error('Erro ao carregar publicação:', err),
